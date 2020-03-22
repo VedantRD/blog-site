@@ -4,60 +4,77 @@ export default class Test extends Component {
     render() {
         return (
             <div>
-
-                <div className="row px-4 no-gutters py-5">
-                    <div className="col-xl-12 col-md-6 col-sm-10 mx-auto">
-
-                        {/* <!-- Profile widget --> */}
-                        <div className="bg-white shadow rounded overflow-hidden">
-                            <div className="px-4 pt-0 pb-4 bg-dark">
-                                <div className="media align-items-end profile-header">
-                                    <div className="profile mr-3"><img src="https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/teacher-4.jpg" alt="..." width="130" className="rounded mb-2 img-thumbnail" /><a href="#prof" className="btn btn-dark btn-sm btn-block">Edit profile</a></div>
-                                    <div className="media-body mb-5 text-white">
-                                        <h4 className="mt-0 mb-0">Manuella Tarly</h4>
-                                        <p className="small mb-4"> <i className="fa fa-map-marker mr-2"></i>San Farcisco</p>
+                <form>
+                    <div className='modal-body'>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputEmail4" style={{ textAlign: 'left !important' }}>Fullname</label>
+                                <input type="email" className="form-control" id="inputEmail4" placeholder='Firstname Lastname' />
+                            </div>
+                            <div className="form-group col-md-6">
+                                <div className='form-row'>
+                                    <div className="form-group col-md-4">
+                                        <label htmlFor="inputPassword4">Date</label>
+                                        <input type="password" className="form-control" id="inputPassword4" placeholder='DD' />
                                     </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-light p-4 d-flex justify-content-end text-center">
-                                <ul className="list-inline mb-0">
-                                    <li className="list-inline-item">
-                                        <h5 className="font-weight-bold mb-0 d-block">241</h5><small className="text-muted"> <i className="fa fa-picture-o mr-1"></i>Photos</small>
-                                    </li>
-                                    <li className="list-inline-item">
-                                        <h5 className="font-weight-bold mb-0 d-block">84K</h5><small className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Followers</small>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="py-4 px-4">
-                                <div className="d-flex align-items-center justify-content-between mb-3">
-                                    <h5 className="mb-0">Recent photos</h5><a href="#prof" className="btn btn-link text-muted">Show all</a>
-                                </div>
-                                <div className="row">
-                                    <div className="col-lg-6 mb-2 pr-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/nicole-honeywill-546848-unsplash_ymprvp.jpg" alt="" className="img-fluid rounded shadow-sm" /></div>
-                                    <div className="col-lg-6 mb-2 pl-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294927/dose-juice-1184444-unsplash_bmbutn.jpg" alt="" className="img-fluid rounded shadow-sm" /></div>
-                                    <div className="col-lg-6 pr-lg-1 mb-2"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294926/cody-davis-253925-unsplash_hsetv7.jpg" alt="" className="img-fluid rounded shadow-sm" /></div>
-                                    <div className="col-lg-6 pl-lg-1"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556294928/tim-foster-734470-unsplash_xqde00.jpg" alt="" className="img-fluid rounded shadow-sm" /></div>
-                                </div>
-                                <div className="py-4">
-                                    <h5 className="mb-3">Recent posts</h5>
-                                    <div className="p-4 bg-light rounded shadow-sm">
-                                        <p className="font-italic mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <ul className="list-inline small text-muted mt-3 mb-0">
-                                            <li className="list-inline-item"><i className="fa fa-comment-o mr-2"></i>12 Comments</li>
-                                            <li className="list-inline-item"><i className="fa fa-heart-o mr-2"></i>200 Likes</li>
-                                        </ul>
+                                    <div className="form-group col-md-4">
+                                        <label htmlFor="inputPassword4">Month</label>
+                                        <input type="password" className="form-control" id="inputPassword4" placeholder='MM' />
+                                    </div>
+                                    <div className="form-group col-md-4">
+                                        <label htmlFor="inputPassword4">Year</label>
+                                        <input type="password" className="form-control" id="inputPassword4" placeholder='YYYY' />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {/* <!-- End profile widget --> */}
-
+                        <div className="form-group">
+                            <label htmlFor="inputAddress">Bio</label>
+                            <textarea className="form-control" id="inputAddress" placeholder="Describe Yourself" />
+                        </div>
+                        <div className='form-row'>
+                            <div className="form-group col-md-3">
+                                <label htmlFor="inputAddress2">Skill 1</label>
+                                <input type="text" className="form-control" id="inputAddress2" placeholder='e.g. Node JS' />
+                            </div>
+                            <div className="form-group col-md-3">
+                                <label htmlFor="inputAddress2">Skill 2</label>
+                                <input type="text" className="form-control" id="inputAddress2" placeholder='e.g. Cricket' />
+                            </div>
+                            <div className="form-group col-md-3">
+                                <label htmlFor="inputAddress2">Skill 3</label>
+                                <input type="text" className="form-control" id="inputAddress2" />
+                            </div>
+                            <div className="form-group col-md-3">
+                                <label htmlFor="inputAddress2">Skill 4</label>
+                                <input type="text" className="form-control" id="inputAddress2" />
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="inputAddress">Hobbies</label>
+                            <input type='text' className="form-control" id="inputAddress" placeholder="Things that you like to do..." />
+                        </div>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputCity">Profession</label>
+                                <input type="text" className="form-control" id="inputCity" placeholder='e.g. Web Developer' />
+                            </div>
+                            <div className="form-group col-md-4">
+                                <label htmlFor="inputState">Currently In</label>
+                                <select id="inputState" className="form-control">
+                                    <option selected>India...</option>
+                                    <option>Israel</option>
+                                    <option>USA</option>
+                                </select>
+                            </div>
+                            <div className="form-group col-md-2">
+                                <label htmlFor="inputZip">Gender</label>
+                                <input type="text" className="form-control" id="inputZip" placeholder='Male' />
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Sign in</button>
                     </div>
-                </div>
-
+                </form>
             </div>
         )
     }

@@ -18,3 +18,7 @@ code {
   .profilepic{margin-left: 20%;}
   .profileusername{margin-top: 20px; text-align:'center'}
   }
+
+  .form-group{
+    text-align:left !important;
+}

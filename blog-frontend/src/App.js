@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import ShowBlogs from './components/ShowBlogs'
-import FullBlog from './components/FullBlog'
+import ShowBlogs from './components/blogs/ShowBlogs'
+import FullBlog from './components/blogs/FullBlog'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
-import Default from './components/Default'
 import Profile from './components/Profile'
-import ProfileUpdate from './components/ProfileUpdate'
 // import Test from './components/Test'
+import Followers from './components/follows/Followers'
+import Following from './components/follows/Following'
 
 export default class App extends Component {
+
+  logoutUser = () => {
+    this.setState({ isLoggedIn: false })
+    console.log('logout successful')
+  }
 
   setUser = (validation, userdata) => {
     this.setState({ isLoggedIn: validation, userdata })
@@ -22,18 +27,32 @@ export default class App extends Component {
   }
 
   render() {
+    const username = this.state.userdata.username
     return (
       // <Test></Test>
-      // <ProfileUpdate></ProfileUpdate>
       <BrowserRouter>
-        <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn} username={this.state.userdata.username}></Navbar>
+        <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
+          username={username} logoutUser={this.logoutUser}>
+        </Navbar>
         <Switch>
           {this.state.isLoggedIn ?
 
             <Switch>
-              <Route path='/profile' component={() => <Profile username={this.state.userdata.username}></Profile>}></Route>
-              <Route path='/blogs/:id' render={(props) => <FullBlog {...props} username={this.state.userdata.username}></FullBlog>}></Route>
-              <Route path='/blogs' component={() => <ShowBlogs blogsData={this.state.userdata.blogs} username={this.state.userdata.username}></ShowBlogs>}></Route>
+              <Route path='/profile/followers' component={() =>
+                <Followers username={username}></Followers>}>
+              </Route>
+              <Route path='/profile/following' component={() =>
+                <Following username={username}></Following>}>
+              </Route>
+              <Route path='/profile' component={() =>
+                <Profile username={username}></Profile>}>
+              </Route>
+              <Route path='/blogs/:id' render={(props) =>
+                <FullBlog {...props} username={username}></FullBlog>}>
+              </Route>
+              <Route path='/blogs' component={() =>
+                <ShowBlogs blogsData={this.state.userdata.blogs} username={username}></ShowBlogs>}>
+              </Route>
               <Route path='/' component={Home}></Route>
             </Switch>
 
@@ -41,7 +60,6 @@ export default class App extends Component {
 
             <Switch>
               <Route path='/' component={Home}></Route>
-              <Route component={Default}></Route>
             </Switch>
 
           }

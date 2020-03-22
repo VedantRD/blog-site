@@ -77,10 +77,6 @@ export default class LoginModal extends Component {
                                     <div className="modal-footer border-top-0 d-flex justify-content-center">
                                         <button className="btn btn-success" onClick={this.UserAuth}>Login</button>
                                     </div>
-                                    {/* <div className="modal-footer justify-content-center d-flex p-3">
-                                        New User?
-                                        <RegisterModal></RegisterModal>
-                                    </div> */}
                                 </form>
                             }
                         </div>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import RegisterModal from './RegisterModal'
-import LoginModal from './LoginModal'
+import RegisterModal from './auth/RegisterModal'
+import LoginModal from './auth/LoginModal'
+import Logout from './auth/Logout'
 
 export default class Navbar extends Component {
 
@@ -10,7 +11,14 @@ export default class Navbar extends Component {
     }
 
     changeUserStatus = (userStatus) => {
-        this.setState({ isLoggedIn: userStatus })
+        if (this.props.isLoggedIn) {
+            this.setState({ isLoggedIn: userStatus })
+        }
+    }
+
+    loggedOut = () => {
+        this.setState({ isLoggedIn: false })
+        console.log('logout from navbar')
     }
 
     render() {
@@ -45,11 +53,7 @@ export default class Navbar extends Component {
                                 </Link>
                             </li>
                             {this.state.isLoggedIn === true ?
-                                <Link to={''} className="nav-link text-light mx-1" href="#one">
-                                    <span>{this.props.username}</span>
-                                    <i className="fa fa-sign-out ml-2 text-danger"></i>
-                                    <span className="sr-only">(current)</span>
-                                </Link>
+                                <Logout logoutUser={this.props.logoutUser} username={this.props.username} loggedOut={this.loggedOut}></Logout>
                                 :
                                 <span>
                                     <li className="nav-item">

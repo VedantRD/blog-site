@@ -31,6 +31,28 @@ router.post('/users/blogs', async (req, res) => {
     res.json('hello')
 })
 
+// ========================= Update Profile by Username =========================== //
+router.post('/users/user/profile', async (req, res) => {
+    console.log('in the update function')
+    const { username, profile } = req.body
+    console.log(profile)
+    User.findOneAndUpdate({ username }, { profile },
+        function (err, doc) {
+
+            if (err) {
+
+                console.log("update document error");
+
+            } else {
+
+                console.log("update document success");
+
+                console.log(doc);
+            }
+        });
+    res.json('hello')
+})
+
 // ========================== Get all Blogs or Profile of a User by Username ========================= //
 router.get('/users/:username', async (req, res) => {
     const user = await User.findOne({ username: req.params.username })
@@ -98,8 +120,35 @@ router.post('/users/follow/:myUsername/:otherUser', async (req, res) => {
                         console.log(doc)
                     }
                 })
-                // console.log("update document success");
+                console.log(doc);
+            }
+        });
+    res.json('hello')
+})
 
+// =============================== Unfollow Other User by Username ================================== //
+router.post('/users/unfollow/:myUsername/:otherUser', async (req, res) => {
+    console.log('in the update function')
+    const myUsername = req.params.myUsername
+    const otherUser = req.params.otherUser
+    User.findOneAndUpdate({ username: myUsername }
+        , { $pull: { following: otherUser } }
+        , function (err, doc) {
+
+            if (err) {
+
+                console.log("update document error");
+
+            } else {
+
+                User.findOneAndUpdate({ username: otherUser }, { $pull: { followers: myUsername } }, function (err, doc) {
+                    if (err) {
+                        console.log('update document error')
+                    } else {
+                        console.log('update document success')
+                        console.log(doc)
+                    }
+                })
                 console.log(doc);
             }
         });

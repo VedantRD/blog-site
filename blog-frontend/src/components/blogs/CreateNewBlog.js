@@ -44,12 +44,12 @@ export default class createNewBlog extends Component {
         return (
             <div>
                 {/* ========================= Login Modal =========================== */}
-                <button className='btn btn-dark mr-3 mt-3 mb-3' data-toggle="modal" data-target="#loginModal">
+                <button className='btn btn-dark mr-3 mt-3 mb-3' data-toggle="modal" data-target="#blogModal">
                     <i className="fa fa-plus pr-2" aria-hidden="true"></i>
                         Create New Blog
                 </button>
 
-                <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="blogModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header border-bottom-0">

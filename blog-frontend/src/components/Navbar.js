@@ -40,6 +40,13 @@ export default class Navbar extends Component {
                                 </Link>
                             </li>
                             <li className="nav-item active">
+                                <Link to={'/feed'} className="nav-link text-light mx-1" href="#one">
+                                    <i className="fa fa-home pr-2"></i>
+                                    Feed
+                                    <span className="sr-only">(current)</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item active">
                                 <Link to={'/blogs'} className="nav-link text-light mx-1" href="#one">
                                     <i className="fa fa-file-text-o pr-2"></i>
                                     My Blogs

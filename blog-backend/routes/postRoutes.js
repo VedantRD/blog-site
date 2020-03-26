@@ -11,7 +11,7 @@ router.post('/users/blogs', async (req, res) => {
     // const newblog = req.body
     const { title, content, tags, createdAt, username } = req.body
     const newblog = {
-        title, content, tags, createdAt, likes: 0
+        writtenBy: username, title, content, tags, createdAt, likes: 0
     }
     User.findOneAndUpdate({ username }
         , { $push: { blogs: newblog } }
@@ -154,3 +154,13 @@ router.post('/users/unfollow/:myUsername/:otherUser', async (req, res) => {
         });
     res.json('hello')
 })
+
+// ========================= Load User Feed by Following array ===============================
+router.get('/users/feed/:following', async (req, res) => {
+    let users = req.params.following
+    users = [...(users.split(","))]
+    // console.log(typeof (users))
+    const blogs = await User.find({ username: { $in: users } }, { 'username': 1, 'blogs': 1 })
+    res.json(blogs)
+})
+

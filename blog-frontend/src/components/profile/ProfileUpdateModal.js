@@ -15,6 +15,7 @@ export default class ProfileUpdateModal extends Component {
             profile: this.state.profile
         }).then((response) => {
             console.log(response);
+            this.props.getUserData()
         }).catch((error) => {
             console.log(error);
         });
@@ -63,7 +64,7 @@ export default class ProfileUpdateModal extends Component {
                                 </button>
                             </div>
                             {/* ============================ Start of form ============================== */}
-                            <form onSubmit={this.updateProfile}>
+                            <form>
                                 <div className='modal-body'>
                                     <div className="form-row">
                                         <div className="form-group col-md-6">
@@ -134,7 +135,7 @@ export default class ProfileUpdateModal extends Component {
                                         <label htmlFor="inputAddress">Hobbies</label>
                                         <textarea className="form-control" name='hobbies' value={this.state.profile.hobbies} onChange={this.handleChange} />
                                     </div>
-                                    <button type="submit" className="btn btn-success" onClick={this.props.renderAfterUpdate} data-dismiss='modal'>Update</button>
+                                    <button type="submit" className="btn btn-success" onClick={this.updateProfile} data-dismiss='modal'>Update</button>
                                 </div>
                             </form>
                             {/*  =========================== End of Form =================================*/}

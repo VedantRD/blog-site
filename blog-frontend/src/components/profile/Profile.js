@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { SocialIcon } from 'react-social-icons';
-import card1 from '../assets/home.jpg'
+import card1 from '../../assets/home.jpg'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import ProfileUpdateModal from './ProfileUpdateModal';
@@ -8,7 +8,8 @@ import ProfileUpdateModal from './ProfileUpdateModal';
 export default class Profile extends Component {
 
     state = {
-        userData: null
+        userData: null,
+        rerender: ''
     }
 
     getUserData = () => {
@@ -17,15 +18,12 @@ export default class Profile extends Component {
             .then((response) => {
                 console.log(response.data);
                 this.setState({ userData: response.data })
+                this.forceUpdate()
             })
             .catch((error) => {
                 console.log(error);
                 alert('something went wrong')
             });
-    }
-
-    renderAfterUpdate = () => {
-        this.forceUpdate()
     }
 
     componentDidMount() {
@@ -38,6 +36,7 @@ export default class Profile extends Component {
             // <div className='container mt-2'>
             this.state.userData ?
                 <div className='card mx-5 mt-5 mb-3'>
+                    {console.log('rendering user profile')}
 
                     <div className="card-header">
 
@@ -65,7 +64,7 @@ export default class Profile extends Component {
                         <div className='row no-gutters justify-content-sm-center justify-content-lg-end text-center mx-0 px-0 align-items-center'>
                             <div className='col-lg-4'>
                                 <div className='row justify-content-start align-items-center no-gutters pl-5 editprof'>
-                                    <ProfileUpdateModal profile={user.profile} username={user.username} renderAfterUpdate={this.renderAfterUpdate}></ProfileUpdateModal>
+                                    <ProfileUpdateModal profile={user.profile} username={user.username} getUserData={this.getUserData}></ProfileUpdateModal>
                                 </div>
                             </div>
                             <div className='col-lg-8'>

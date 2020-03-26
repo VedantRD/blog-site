@@ -11,7 +11,6 @@ export class Home extends Component {
             <div>
                 {/* <h1 classNameNameName='mt-5 text-primary'>hello</h1> */}
                 <div className='row no-gutters justify-content-lg-end mx-4'>
-                    {/* <div className='col-6'></div> */}
                     <div className="input-group md-form form-sm form-2 pt-3 col-lg-4 mr-1">
                         <input className="form-control my-0 py-1" type="text" placeholder="Search Here" aria-label="Search" />
                         <div className="input-group-append">

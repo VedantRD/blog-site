@@ -10,7 +10,7 @@ export default class Following extends Component {
     }
 
     getFollowing = () => {
-        const username = this.props.username
+        const username = this.props.match.params.otherUser
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
                 console.log(response.data);
@@ -26,20 +26,31 @@ export default class Following extends Component {
         this.getFollowing()
     }
 
+    removeFollowing = (otherUser) => {
+        // event.preventDefault()
+        console.log(otherUser)
+        let tempArray = this.state.followingData
+        var filtered = tempArray.filter(function (value) { return value !== otherUser; })
+        this.setState({ followingData: filtered })
+        // console.log(this.state.followingData)
+    }
+
     render() {
         return (
             <div className='container'>
 
-                <div class="row">
-                    <div class="col-12 text-center">
+                <div className="row">
+                    <div className="col-12 text-center">
                         <h2 className='my-4'> You are Following </h2>
                     </div>
 
                     {this.state.followingData ?
                         this.state.followingData.map((followingName) => {
-                            return (<div class="col-sm-12 col-md-6 mb-4">
-                                <RenderFollowing otherUser={followingName} userData={this.state.userData}></RenderFollowing>
-                            </div>)
+                            return (
+                                <div className="col-sm-12 col-md-6 mb-4" key={followingName}>
+                                    <RenderFollowing removeFollowing={this.removeFollowing} otherUser={followingName} userData={this.state.userData}></RenderFollowing>
+                                </div>
+                            )
                         })
                         :
                         <p>Data is Loading</p>

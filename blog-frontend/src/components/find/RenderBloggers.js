@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import FollowModal from '../auth/FollowModal'
+import UnfollowModal from '../auth/UnfollowModal'
 import card1 from '../../assets/home.jpg'
-// import FollowModal from './../auth/FollowModal'
-import UnfollowModal from './../auth/UnfollowModal'
 
-export default class RenderFollowing extends Component {
+export default class RenderBloggers extends Component {
     render() {
         const otherUser = this.props.otherUser
-        // const userFollowing = this.props.userData.following
+        const userFollowing = this.props.followingArray
         return (
             <div className="card">
                 <div className="card-body">
@@ -18,17 +18,16 @@ export default class RenderFollowing extends Component {
                             <h4 className="card-text">{otherUser}</h4>
                             <p>Web Developer</p>
                         </div>
-                        <div className='col-3 align-self-start'>
-                            <UnfollowModal removeFollowing={this.props.removeFollowing} username={this.props.userData.username} otherUser={otherUser}></UnfollowModal>
-                        </div>
-                        {/* {userFollowing.includes(otherUser) ?
-                            
+                        {userFollowing.includes(otherUser) ?
+                            <div className='col-3 align-self-start'>
+                                <UnfollowModal username={this.props.username} otherUser={otherUser} fetchUserData={this.props.fetchUserData}></UnfollowModal>
+                            </div>
                             :
                             <div className='col-3 align-self-start'>
                                 {console.log(this.props.userData.username)}
-                                <FollowModal username={this.props.userData.username} otherUser={otherUser}></FollowModal>
+                                <FollowModal username={this.props.username} otherUser={otherUser} fetchUserData={this.props.fetchUserData}></FollowModal>
                             </div>
-                        } */}
+                        }
                     </div>
                 </div>
             </div>

@@ -3,17 +3,19 @@ import { SocialIcon } from 'react-social-icons';
 import card1 from '../../assets/home.jpg'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import ProfileUpdateModal from './ProfileUpdateModal';
+import UnfollowModal from '../auth/UnfollowModal';
+import FollowModal from '../auth/FollowModal';
 
-export default class Profile extends Component {
+export default class OthersProfile extends Component {
 
     state = {
         userData: null,
-        rerender: ''
+        rerender: '',
+        followingArray: []
     }
 
     getUserData = () => {
-        const username = this.props.username
+        const username = this.props.match.params.otherUser
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
                 console.log(response.data);
@@ -26,8 +28,26 @@ export default class Profile extends Component {
             });
     }
 
+    removeFollowing = (otherUser) => {
+        console.log(otherUser)
+        let tempArray = this.state.followingArray
+        var filtered = tempArray.filter(function (value) { return value !== otherUser; })
+        this.setState({ followingArray: filtered })
+        // console.log(this.state.followingData)
+    }
+
+    addFollowing = (otherUser) => {
+        let followingArray = this.state.followingArray
+        followingArray = [...followingArray, otherUser]
+        this.setState({ followingArray })
+    }
+
     componentDidMount() {
         this.getUserData()
+        if (this.state.followingArray.length === 0) {
+            this.setState({ followingArray: this.props.followingArray })
+        }
+        console.log(this.props.followingArray)
     }
 
     render() {
@@ -44,8 +64,10 @@ export default class Profile extends Component {
                             <div className='col-lg-2 col-sm-12 pl-5 profilepic'>
                                 <img src={card1} className="rounded-circle z-depth-2" data-holder-rendered="true" alt="Cinque Terre" height='150' width='150' />
                             </div>
-                            <div className='col-lg-10 col-md-4 profileusername'>
+                            <div className='col-lg-8 col-md-4 profileusername'>
+                                {/* <div className='mr-5'> */}
                                 <h3 className="card-title my-0 d-inline">{user.username}</h3>
+                                {/* </div> */}
                                 <p className="small mb-3"> <i className="fa fa-map-marker mr-2"></i>Bharat</p>
                                 <p className='card-text'><span className='font-weight-bold'>Profession : </span>
                                     {user.profile.profession}
@@ -58,15 +80,18 @@ export default class Profile extends Component {
                                     <p className="badge bg-info mr-2 px-3 text-light py-2" style={{ fontSize: 15 }}>{user.profile.skills.skill4}</p>
                                 </div>
                             </div>
+                            <div className='col-lg-2 col-md-0 align-self-start pl-5 pt-3'>
+                                {this.state.followingArray.includes(user.username) ?
+                                    <UnfollowModal removeFollowing={this.removeFollowing} username={this.props.username} otherUser={user.username}></UnfollowModal>
+                                    :
+                                    <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username}></FollowModal>
+                                }
+                                {/* <button className='btn btn-danger'>Hello</button> */}
+                            </div>
                         </div>
                         <hr className=''></hr>
 
                         <div className='row no-gutters justify-content-sm-center justify-content-lg-end text-center mx-0 px-0 align-items-center'>
-                            <div className='col-lg-4'>
-                                <div className='row justify-content-start align-items-center no-gutters pl-5 editprof'>
-                                    <ProfileUpdateModal profile={user.profile} username={user.username} getUserData={this.getUserData}></ProfileUpdateModal>
-                                </div>
-                            </div>
                             <div className='col-lg-8'>
                                 <div className='row justify-content-end no-gutters'>
                                     <div className='col-lg-2 col-sm-4'>
@@ -141,7 +166,8 @@ export default class Profile extends Component {
 
                 </div>
                 :
-                <p>Data is loading</p>
+                <h3>Data is loading</h3>
+            // </div>
         )
     }
 }

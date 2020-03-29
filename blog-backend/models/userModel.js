@@ -1,12 +1,19 @@
 const mongoose = require('mongoose')
 
+const commentSchema = new mongoose.Schema({
+    createdAt: { type: Date, required: true },
+    username: { type: String, required: true },
+    content: { type: String, required: true }
+})
+
 const blogSchema = new mongoose.Schema({
     writtenBy: { type: String, required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
     tags: { type: String, default: 'No Tags' },
     createdAt: { type: Date, required: true },
-    likes: { type: Number, required: true }
+    likes: { type: Number, required: true, default: 0 },
+    comments: { type: [commentSchema], default: [] }
 })
 
 const profileSchema = new mongoose.Schema({
@@ -37,11 +44,13 @@ const userSchema = new mongoose.Schema({
     blogs: { type: [blogSchema], default: [] },
     profile: { type: profileSchema, default: {} },
     following: { type: [String], default: [] },
-    followers: { type: [String], default: [] }
+    followers: { type: [String], default: [] },
+    likedBlogs: { type: [String], default: [] }
 })
 
 module.exports = {
     User: mongoose.model('users', userSchema),
     Blog: mongoose.model('blogs', blogSchema),
-    Profile: mongoose.model('profile', profileSchema)
+    Profile: mongoose.model('profile', profileSchema),
+    Comment: mongoose.model('comment', commentSchema)
 }

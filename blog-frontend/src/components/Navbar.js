@@ -53,6 +53,13 @@ export default class Navbar extends Component {
                                     <span className="sr-only">(current)</span>
                                 </Link>
                             </li>
+                            <li className="nav-item active">
+                                <Link to={'/find'} className="nav-link text-light mx-1" href="#one">
+                                    <i className="fa fa-file-text-o pr-2"></i>
+                                    Find
+                                    <span className="sr-only">(current)</span>
+                                </Link>
+                            </li>
                             <li className="nav-item">
                                 <Link to={'/profile'} className="nav-link text-light mx-1">
                                     <i className="fa fa-user pr-2"></i>
@@ -60,7 +67,9 @@ export default class Navbar extends Component {
                                 </Link>
                             </li>
                             {this.state.isLoggedIn === true ?
-                                <Logout logoutUser={this.props.logoutUser} username={this.props.username} loggedOut={this.loggedOut}></Logout>
+                                <li className='nav-item'>
+                                    <Logout logoutUser={this.props.logoutUser} username={this.props.username} loggedOut={this.loggedOut}></Logout>
+                                </li>
                                 :
                                 <span>
                                     <li className="nav-item">

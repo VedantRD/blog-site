@@ -10,15 +10,6 @@ export class Home extends Component {
         return (
             <div>
                 {/* <h1 classNameNameName='mt-5 text-primary'>hello</h1> */}
-                <div className='row no-gutters justify-content-lg-end mx-4'>
-                    <div className="input-group md-form form-sm form-2 pt-3 col-lg-4 mr-1">
-                        <input className="form-control my-0 py-1" type="text" placeholder="Search Here" aria-label="Search" />
-                        <div className="input-group-append">
-                            <span className="input-group-text lighten-3" id="basic-text1"><i className="fas fa-search text-grey"
-                                aria-hidden="true"></i></span>
-                        </div>
-                    </div>
-                </div>
 
                 {/* ==================================== body of the homepage ======================================== */}
                 {/* <div className="row"></div> */}

@@ -2,8 +2,6 @@ const router = require('express').Router()
 // const Post = require('../models/postModel')
 const mySchemas = require('../models/userModel')
 const User = mySchemas.User
-const Blog = mySchemas.Blog
-const Profile = mySchemas.Profile
 
 // ========================= Post new blog =========================== //
 router.post('/users/blogs', async (req, res) => {
@@ -11,7 +9,7 @@ router.post('/users/blogs', async (req, res) => {
     // const newblog = req.body
     const { title, content, tags, createdAt, username } = req.body
     const newblog = {
-        writtenBy: username, title, content, tags, createdAt, likes: 0
+        writtenBy: username, title, content, tags, createdAt
     }
     User.findOneAndUpdate({ username }
         , { $push: { blogs: newblog } }
@@ -70,7 +68,6 @@ router.get('/users/blogs/:blogId/:username', async (req, res) => {
 // ================== Create new User ======================== //
 router.post('/users', async (req, res) => {
     const { username, password } = req.body
-    // console.log(title, createdAt, tags, html)
     const joinedAt = new Date
     const newUser = new User({
         username, password, joinedAt
@@ -164,3 +161,57 @@ router.get('/users/feed/:following', async (req, res) => {
     res.json(blogs)
 })
 
+// ============================= Find user and blogs from search bar ===============================
+router.get('/users/find/:input', async (req, res) => {
+    const input = req.params.input
+    const users = await User.find({ username: { $regex: `.*${input}.*` } }, { blogs: 0 })
+    const blogs = await User.find({ 'blogs.title': { $regex: `.*${input}.*` } }, { 'blogs.$': 1, _id: 0 })
+    res.json({ blogs, users })
+})
+
+// ================================= Like and Unlike Blog using blogId =====================================
+router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
+    console.log('in the blog like route')
+    const myUsername = req.params.myUsername
+    const blogId = req.params.blogId
+    const act = req.params.act
+    let incrementor
+    if (act === 'Like')
+        incrementor = 1
+    else
+        incrementor = -1
+
+    User.findOneAndUpdate({ 'blogs._id': blogId }
+        , { $inc: { 'blogs.$.likes': incrementor } }
+        , function (err, doc) {
+
+            if (err) {
+
+                console.log("update document error for liking a blog");
+
+            } else {
+
+                if (act === 'Like') {
+                    User.findOneAndUpdate({ username: myUsername }, { $push: { likedBlogs: blogId } }, function (err, doc) {
+                        if (err) {
+                            console.log('update document error')
+                        } else {
+                            console.log('update document success')
+                            console.log(doc)
+                        }
+                    })
+                } else {
+                    User.findAndUpdate({ username: myUsername }, { $pull: { likedBlogs: blogId } }, function (err, doc) {
+                        if (err) {
+                            console.log('update document error')
+                        } else {
+                            console.log('update document success')
+                            console.log(doc)
+                        }
+                    })
+                }
+                console.log(doc);
+            }
+        });
+    res.json('hello')
+})

@@ -25,7 +25,6 @@ export default class Feed extends Component {
                     })
                     this.setState({ blogs: temp })
                 }
-                // console.log(this.state.blogs)
             })
             .catch((error) => {
                 console.log(error);
@@ -35,7 +34,6 @@ export default class Feed extends Component {
 
     componentDidMount() {
         this.loadFeed()
-        // console.log(this.props.followingArray)
     }
 
     render() {

@@ -18,8 +18,8 @@ export class Home extends Component {
                     {/* <!-- Jumbotron Header --> */}
                     <header className="jumbotron mb-3 mt-3" style={{ backgroundImage: `url(${background})`, backgroundPosition: 'center' }}>
                         <h1 className="text-light" style={{ fontFamily: 'arial' }}>Welcome to VD-Blogs</h1>
-                        <p className="lead text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-                        <a href="#one" className="btn btn-dark btn-lg">See Top Blogs</a>
+                        <p className="lead text-light">Homepage is still under development. You can checkout rest of the pages. Report me for the bugs you encounter while using site</p>
+                        <a href="#one" className="btn btn-dark btn-lg" onClick={() => { alert('This feature is coming soon!') }}>See Top Blogs</a>
                     </header>
 
                     {/* <h2 className="mb-4 text-center pb-1">Top Blogs</h2> */}

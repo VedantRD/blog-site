@@ -14,7 +14,7 @@ export default class Find extends Component {
     handleChange = (e) => {
         this.setState({ searchInput: e.target.value })
         this.searchData()
-        console.log(this.state.searchInput)
+        // console.log(this.state.searchInput)
     }
 
     searchData = () => {
@@ -26,8 +26,6 @@ export default class Find extends Component {
                 data.blogs.map((items) => {
                     return temp = [...temp, ...items.blogs]
                 })
-                console.log(temp)
-                console.log(data.users)
                 this.setState({ blogs: temp, bloggers: data.users })
 
             })

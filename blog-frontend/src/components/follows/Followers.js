@@ -13,7 +13,7 @@ export default class Followers extends Component {
         const username = this.props.username
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({ userData: response.data, followersData: response.data.followers })
             })
             .catch((error) => {

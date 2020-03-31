@@ -18,7 +18,6 @@ export default class Navbar extends Component {
 
     loggedOut = () => {
         this.setState({ isLoggedIn: false })
-        // console.log('logout from navbar')
     }
 
     render() {
@@ -39,33 +38,39 @@ export default class Navbar extends Component {
                                     <span className="sr-only">(current)</span>
                                 </Link>
                             </li>
-                            <li className="nav-item active">
-                                <Link to={'/feed'} className="nav-link text-light mx-1" href="#one">
-                                    <i className="fa fa-file-text-o pr-2"></i>
-                                    Feed
-                                    <span className="sr-only">(current)</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item active">
-                                <Link to={'/find'} className="nav-link text-light mx-1" href="#one">
-                                    <i className="fa fa-search pr-2" aria-hidden="true"></i>
-                                    Search
-                                    <span className="sr-only">(current)</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item active">
-                                <Link to={'/blogs'} className="nav-link text-light mx-1" href="#one">
-                                    <i className="fa fa-book pr-2" aria-hidden="true"></i>
-                                    My Blogs
-                                    <span className="sr-only">(current)</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={'/profile'} className="nav-link text-light mx-1">
-                                    <i className="fa fa-user pr-2"></i>
-                                    Profile
-                                </Link>
-                            </li>
+                            {this.state.isLoggedIn ?
+                                <>
+                                    <li className="nav-item active">
+                                        <Link to={'/feed'} className="nav-link text-light mx-1" href="#one">
+                                            <i className="fa fa-file-text-o pr-2"></i>
+                                            Feed
+                                            <span className="sr-only">(current)</span>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active">
+                                        <Link to={'/find'} className="nav-link text-light mx-1" href="#one">
+                                            <i className="fa fa-search pr-2" aria-hidden="true"></i>
+                                            Search
+                                            <span className="sr-only">(current)</span>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active">
+                                        <Link to={'/blogs'} className="nav-link text-light mx-1" href="#one">
+                                            <i className="fa fa-book pr-2" aria-hidden="true"></i>
+                                            My Blogs
+                                            <span className="sr-only">(current)</span>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to={'/profile'} className="nav-link text-light mx-1">
+                                            <i className="fa fa-user pr-2"></i>
+                                            Profile
+                                        </Link>
+                                    </li>
+                                </>
+                                :
+                                <span></span>
+                            }
                             {this.state.isLoggedIn === true ?
                                 <li className='nav-item'>
                                     <Logout logoutUser={this.props.logoutUser} username={this.props.username} loggedOut={this.loggedOut}></Logout>

@@ -18,7 +18,7 @@ export default class OthersProfile extends Component {
         const username = this.props.match.params.otherUser
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({ userData: response.data })
                 this.forceUpdate()
             })
@@ -29,7 +29,7 @@ export default class OthersProfile extends Component {
     }
 
     removeFollowing = (otherUser) => {
-        console.log(otherUser)
+        // console.log(otherUser)
         let tempArray = this.state.followingArray
         var filtered = tempArray.filter(function (value) { return value !== otherUser; })
         this.setState({ followingArray: filtered })
@@ -47,7 +47,7 @@ export default class OthersProfile extends Component {
         if (this.state.followingArray.length === 0) {
             this.setState({ followingArray: this.props.followingArray })
         }
-        console.log(this.props.followingArray)
+        // console.log(this.props.followingArray)
     }
 
     render() {
@@ -55,7 +55,6 @@ export default class OthersProfile extends Component {
         return (
             this.state.userData ?
                 <div className='card mx-5 mt-5 mb-3'>
-                    {console.log('rendering user profile')}
 
                     <div className="card-header">
 
@@ -64,9 +63,7 @@ export default class OthersProfile extends Component {
                                 <img src={card1} className="rounded-circle z-depth-2" data-holder-rendered="true" alt="Cinque Terre" height='150' width='150' />
                             </div>
                             <div className='col-lg-8 col-md-4 profileusername'>
-                                {/* <div className='mr-5'> */}
                                 <h3 className="card-title my-0 d-inline">{user.username}</h3>
-                                {/* </div> */}
                                 <p className="small mb-3"> <i className="fa fa-map-marker mr-2"></i>Bharat</p>
                                 <p className='card-text'><span className='font-weight-bold'>Profession : </span>
                                     {user.profile.profession}
@@ -80,10 +77,13 @@ export default class OthersProfile extends Component {
                                 </div>
                             </div>
                             <div className='col-lg-2 col-md-0 align-self-start pl-5 pt-3'>
-                                {this.state.followingArray.includes(user.username) ?
-                                    <UnfollowModal removeFollowing={this.removeFollowing} username={this.props.username} otherUser={user.username}></UnfollowModal>
+                                {this.props.username !== user.username ?
+                                    this.state.followingArray.includes(user.username) ?
+                                        <UnfollowModal removeFollowing={this.removeFollowing} username={this.props.username} otherUser={user.username}></UnfollowModal>
+                                        :
+                                        <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username}></FollowModal>
                                     :
-                                    <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username}></FollowModal>
+                                    <span></span>
                                 }
                             </div>
                         </div>
@@ -97,16 +97,12 @@ export default class OthersProfile extends Component {
                                         <p className="text-muted"> <i className="fa fa-picture-o mr-1"></i>Blogs</p>
                                     </div>
                                     <div className='col-lg-2 col-sm-4'>
-                                        {/* <Link to={`/profile/followers/${user.username}`}> */}
                                         <h5 className="font-weight-bold mb-0 d-block text-dark">{user.followers.length}</h5>
                                         <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Followers</p>
-                                        {/* </Link> */}
                                     </div>
                                     <div className='col-lg-2 col-sm-4'>
-                                        {/* <Link to={`/profile/following/${user.username}`}> */}
                                         <h5 className="font-weight-bold mb-0 d-block text-dark">{user.following.length}</h5>
                                         <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Following</p>
-                                        {/* </Link> */}
                                     </div>
                                 </div>
                             </div>

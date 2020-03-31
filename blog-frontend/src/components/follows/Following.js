@@ -13,7 +13,7 @@ export default class Following extends Component {
         const username = this.props.match.params.otherUser
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({ followingData: response.data.following, userData: response.data })
             })
             .catch((error) => {
@@ -32,7 +32,6 @@ export default class Following extends Component {
         let tempArray = this.state.followingData
         var filtered = tempArray.filter(function (value) { return value !== otherUser; })
         this.setState({ followingData: filtered })
-        // console.log(this.state.followingData)
     }
 
     render() {

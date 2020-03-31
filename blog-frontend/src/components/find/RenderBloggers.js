@@ -14,9 +14,9 @@ export default class RenderBloggers extends Component {
                         </div>
                         <div className='col-6'>
                             <Link to={`/others/otherProfile/${otherUser}`}>
-                                <h4 className="card-text">{otherUser}</h4>
+                                <h4 className="card-text text-dark">{otherUser}</h4>
                             </Link>
-                            <p>Web Developer</p>
+                            {/* <p>Web Developer</p> */}
                         </div>
                     </div>
                 </div>

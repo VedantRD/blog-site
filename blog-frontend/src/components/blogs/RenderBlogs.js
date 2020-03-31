@@ -17,9 +17,9 @@ export class RenderBlogs extends Component {
                         <div className="card-block">
                             <div className='card-body'>
                                 <h4 className="card-title pb-1 mb-0 text-capitalize">{blog.title}</h4>
-                                <Link to={`/others/otherProfile/${blog.writtenBy}`}>
-                                    <u className='text-muted mt-0 card-subtitle'>{blog.writtenBy}</u>
-                                </Link>
+                                {/* <Link to={`/others/otherProfile/${blog.writtenBy}`}> */}
+                                <u className='text-muted mt-0 card-subtitle'>{blog.writtenBy}</u>
+                                {/* </Link> */}
                                 <p className="card-text mt-2">
                                     <Moment format="DD MMM, YYYY">{blog.createdAt}</Moment>
                                     <span className="text-muted"> ( <Moment fromNow ago>{blog.createdAt}</Moment> ago )</span>

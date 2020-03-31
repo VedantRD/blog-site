@@ -17,7 +17,7 @@ export default class Comments extends Component {
             createdAt: new Date()
         })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 let comment = { username: this.props.username, content: this.state.newComment, createdAt: new Date() }
                 this.setState({ comments: [comment, ...this.state.comments] })
             })
@@ -28,11 +28,8 @@ export default class Comments extends Component {
 
     getComments = () => {
         const blogId = this.props.blogId
-        console.log('id = ' + blogId)
         axios.get(`http://localhost:5000/users/blogs/${blogId}/`)
             .then((response) => {
-                console.log(response.data[0].blogs[0].comments);
-                console.log('hello')
                 this.setState({ comments: response.data[0].blogs[0].comments.reverse() })
             })
             .catch((error) => {
@@ -43,14 +40,13 @@ export default class Comments extends Component {
 
     handleChange = (e) => {
         this.setState({ newComment: e.target.value })
-        console.log(this.state.newComment)
+        // console.log(this.state.newComment)
     }
 
     componentDidMount() {
         if (this.props.blogId) {
             this.getComments()
         }
-        console.log('in compo')
     }
 
     render() {

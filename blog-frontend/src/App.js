@@ -33,15 +33,15 @@ export default class App extends Component {
     return (
       <BrowserRouter>
 
-        {this.state.isLoggedIn === true ?
-          <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
-            username={this.state.userdata.username} logoutUser={this.logoutUser}>
-          </Navbar>
-          :
+        {/* {this.state.isLoggedIn === true ? */}
+        <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
+          username={this.state.userdata.username} logoutUser={this.logoutUser}>
+        </Navbar>
+        {/* :
           <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
             logoutUser={this.logoutUser}>
           </Navbar>
-        }
+        } */}
 
         <div className='mainBox'>
           <Switch>

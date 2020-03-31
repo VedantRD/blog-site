@@ -9,7 +9,7 @@ export class ShowBlogs extends Component {
         const username = this.props.username
         axios.get(`http://localhost:5000/users/${username}`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.setState({ blogs: response.data.blogs.reverse() })
             })
             .catch((error) => {
@@ -28,11 +28,11 @@ export class ShowBlogs extends Component {
 
     render() {
         return (
-            <div>
+            <div className='container'>
                 <div className='row justify-content-end no-gutters'>
                     <CreateNewBlog username={this.props.username} getAllBlogs={this.getAllBlogs}></CreateNewBlog>
                 </div>
-                <div className='container'>
+                <div>
                     {this.state.blogs ?
                         this.state.blogs.map((blog) => {
                             return <RenderBlogs blog={blog} key={blog._id}></RenderBlogs>

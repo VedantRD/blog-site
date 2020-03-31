@@ -9,12 +9,12 @@ export default class ProfileUpdateModal extends Component {
 
     updateProfile = (event) => {
         event.preventDefault()
-        console.log(this.state.profile)
+        // console.log(this.state.profile)
         axios.post('http://localhost:5000/users/user/profile', {
             username: this.props.username,
             profile: this.state.profile
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             this.props.getUserData()
         }).catch((error) => {
             console.log(error);

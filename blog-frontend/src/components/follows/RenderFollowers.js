@@ -28,7 +28,6 @@ export default class RenderFollowers extends Component {
                             </div>
                             :
                             <div className='col-3 align-self-start'>
-                                {console.log(this.props.userData.username)}
                                 <FollowModal addFollower={this.props.addFollower} username={this.props.userData.username} otherUser={followerName}></FollowModal>
                             </div>
                         }

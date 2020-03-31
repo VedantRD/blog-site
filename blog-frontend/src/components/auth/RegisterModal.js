@@ -13,10 +13,27 @@ export default class RegisterModal extends Component {
 
     createNewUser = (event) => {
         event.preventDefault();
+
+        if (this.state.password.length < 8) {
+            alert('Password must be minimum 8 characters long');
+            return
+        }
+
+        axios.get(`http://localhost:5000/users/${this.state.username.toLowerCase()}`)
+            .then((response) => {
+                if (response.data) {
+                    alert('This username is already taken!')
+                    return
+                }
+
+            }).catch((error) => {
+                console.log(error);
+            });
+
         if (this.state.password === this.state.confirmPassword) {
 
             axios.post('http://localhost:5000/users', {
-                username: this.state.username,
+                username: this.state.username.toLowerCase(),
                 password: this.state.password
             }).then((response) => {
                 // console.log(response);
@@ -74,11 +91,11 @@ export default class RegisterModal extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="password3">Password</label>
-                                            <input type="password" className="form-control" id="password3" placeholder="Password" onChange={this.setPassword} />
+                                            <input type="password" className="form-control" id="password3" placeholder="Password" onChange={this.setPassword} minLength={8} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="password2">Confirm Password</label>
-                                            <input type="password" className="form-control" id="password2" placeholder="Confirm Password" onChange={this.setConfirmPassword} />
+                                            <input type="password" className="form-control" id="password2" placeholder="Confirm Password" onChange={this.setConfirmPassword} minLength={8} />
                                         </div>
                                     </div>
                                     <div className="modal-footer border-top-0 d-flex justify-content-center">

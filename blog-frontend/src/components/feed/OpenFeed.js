@@ -7,6 +7,7 @@ export default class OpenFeed extends Component {
 
     state = {
         blog: {},
+        tags: [],
         likedBlogs: this.props.likedBlogs
     }
 
@@ -15,12 +16,14 @@ export default class OpenFeed extends Component {
     }
 
     getBlogData() {
-        // console.log(this.props.match.params.id)
         const blogId = this.props.match.params.id
         axios.get(`http://localhost:5000/users/blogs/${blogId}/${this.props.username}`)
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
-                console.log(response.data);
+                let tags = [...(this.state.blog.tags.split(" "))]
+                console.log(tags)
+                this.setState({ tags })
+                // console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -56,7 +59,7 @@ export default class OpenFeed extends Component {
         const created = this.state.blog.createdAt
         const title = this.state.blog.title
         const content = this.state.blog.content
-        const tags = this.state.blog.tags
+        const tags = this.state.tags
         const comments = this.state.blog.comments
         let noOfComments = 0
         if (comments) {
@@ -89,9 +92,15 @@ export default class OpenFeed extends Component {
                         </p>
 
                         <div className="row mt-5 ml-1">
-                            <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
-                            <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
-                            <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
+                            {this.state.blog.tags ?
+                                tags.map((tag, ind) => {
+                                    return (
+                                        <span className="card-text px-3 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2',fontSize:19 }} key={ind}>{tag}</span>
+                                    )
+                                })
+                                :
+                                <span></span>
+                            }
                         </div>
                     </div>
 

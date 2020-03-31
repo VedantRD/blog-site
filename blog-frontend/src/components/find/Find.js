@@ -38,9 +38,9 @@ export default class Find extends Component {
 
     render() {
         return (
-            <div className=''>
+            <div className='container'>
                 <div className='row no-gutters justify-content-lg-end mx-4'>
-                    <div className="input-group md-form form-sm form-2 pt-3 col-lg-4 mr-1">
+                    <div className="input-group md-form form-sm form-2 pt-3 col-lg-4">
                         <input className="form-control my-0 py-1" type="text" placeholder="Search Here" aria-label="Search" onChange={this.handleChange} />
                         <div className="input-group-append" onClick={this.searchData}>
                             <button className="btn input-group-text lighten-3" id="basic-text1"><i className="fas fa-search text-grey"
@@ -51,13 +51,13 @@ export default class Find extends Component {
 
                 <div className="row">
                     <div className="col-12">
-                        <h3 className='my-4'> Bloggers </h3>
+                        <h4 className='my-4'> Bloggers </h4>
                     </div>
 
                     {this.state.bloggers ?
                         this.state.bloggers.map((blogger) => {
                             return (
-                                <div className="col-sm-12 col-md-4 mb-4" key={blogger._id}>
+                                <div className="col-sm-12 col-md-6 mb-4" key={blogger._id}>
                                     <RenderBloggers username={this.props.username} otherUser={blogger.username} userData={blogger} followingArray={this.props.followingArray} fetchUserData={this.props.fetchUserData}></RenderBloggers>
                                 </div>
                             )
@@ -69,7 +69,7 @@ export default class Find extends Component {
 
                 <div className="row">
                     <div className="col-12">
-                        <h3 className='my-4'> Blogs related to search </h3>
+                        <h4 className='my-4'> Blogs related to search </h4>
                     </div>
 
                     {this.state.blogs ?

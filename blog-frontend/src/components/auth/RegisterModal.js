@@ -19,7 +19,7 @@ export default class RegisterModal extends Component {
                 username: this.state.username,
                 password: this.state.password
             }).then((response) => {
-                console.log(response);
+                // console.log(response);
                 this.setState({ isRegisterSuccess: true })
             }).catch((error) => {
                 console.log(error);
@@ -45,7 +45,7 @@ export default class RegisterModal extends Component {
         return (
             <div>
                 <Link to={""} className="btn text-light" data-toggle="modal" data-target="#form2">
-                    <i className="fa fa-sign-in mr-2"></i>Register
+                    <i className="fa fa-user-plus mr-1" aria-hidden='true'></i>Register
                 </Link>
 
                 <div className="modal fade" id="form2" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

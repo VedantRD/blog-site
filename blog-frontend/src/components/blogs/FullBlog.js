@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Moment from 'react-moment'
+import Comments from '../comments/Comments'
 
 
 export class FullBlog extends Component {
@@ -11,29 +12,20 @@ export class FullBlog extends Component {
 
     componentDidMount() {
         this.getBlogData()
-        // console.log(this.state.blog.title)
-    }
-
-    componentDidUpdate() {
-        // console.log(this.state.blog.title)
     }
 
     getBlogData() {
         // console.log(this.props.match.params.id)
         const blogId = this.props.match.params.id
-        // console.log(blogId)
-        console.log(blogId)
         axios.get(`http://localhost:5000/users/blogs/${blogId}/${this.props.username}`)
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
                 // console.log(response.data);
-                // console.log(blog)
             })
             .catch((error) => {
                 console.log(error);
                 alert('something went wrong')
             });
-        // { console.log(blog.data) }
     }
 
     render() {
@@ -61,20 +53,18 @@ export class FullBlog extends Component {
 
                     {<div className="card-header">
                         <div className='row justify-content-between px-5'>
-                            <h1 className="card-title">{title}</h1>
+                            <h1 className="card-title text-capitalize">{title}</h1>
                         </div>
                     </div>}
 
                     <div className="card-body px-5">
                         <div className="row mt-3 pl-3 align-items-baseline">
-                            {/* <span className='blockquote'>16 Mar, 2020</span> */}
                             <p className='blockquote'>
                                 <Moment format="DD MMM, YYYY">
                                     {created}
                                 </Moment>
                                 <span className='align-items-baseline text-muted'> (last updated <Moment fromNow ago>{created}</Moment> ago)</span>
                             </p>
-                            {/* <span className="align-items-center">, (last updated 10 min ago)</span> */}
                         </div>
 
                         <p className="card-text mt-4" style={{ fontSize: 20 }}>
@@ -87,15 +77,27 @@ export class FullBlog extends Component {
                             <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
                         </div>
 
-                        <div className='row justify-content-end px-4 mt-3'>
-                            <p className="card-text " style={{ fontSize: 21 }}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i> 14</p>
-                            <p className="card-text ml-2" style={{ fontSize: 21 }}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i> 2</p>
-                        </div>
-
                     </div>
-                </div>
 
-            </div>
+                    <div className='card-footer px-5'>
+                        <div className='row no-gutters py-0 m-0'>
+                            <div>
+                                <i className="fa fa-comment-o text-muted mr-2" aria-hidden="true"></i>
+                                <span className="btn p-0 m-0 text-muted" data-toggle="collapse" data-target="#demo">
+                                    <u>Read </u>
+                                </span>
+                            </div>
+                            <big className='ml-auto'>
+                                <i className="fa fa-heart" style={{ color: 'red' }} aria-hidden="true"></i> {this.state.blog.likes}
+                            </big>
+                        </div>
+                        <div id='demo' className='collapse mt-3'>
+                            <Comments blogId={this.props.match.params.id} username={this.props.username}></Comments>
+                        </div>
+                    </div>
+
+                </div>
+            </div >
         )
     }
 }

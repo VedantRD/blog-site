@@ -22,9 +22,6 @@ export default class createNewBlog extends Component {
 
     postNewBlog = (event) => {
         event.preventDefault()
-        console.log(this.state.title)
-        console.log(this.state.tags)
-        console.log(this.state.html)
         axios.post('http://localhost:5000/users/blogs', {
             title: this.state.title,
             content: this.state.content,
@@ -32,7 +29,7 @@ export default class createNewBlog extends Component {
             createdAt: new Date(),
             username: this.props.username
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             this.setState({ isCreateBlogSuccess: true })
             this.props.getAllBlogs()
         }).catch((error) => {

@@ -156,7 +156,6 @@ router.post('/users/unfollow/:myUsername/:otherUser', async (req, res) => {
 router.get('/users/feed/:following', async (req, res) => {
     let users = req.params.following
     users = [...(users.split(","))]
-    // console.log(typeof (users))
     const blogs = await User.find({ username: { $in: users } }, { 'username': 1, 'blogs': 1 })
     res.json(blogs)
 })
@@ -201,7 +200,7 @@ router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
                         }
                     })
                 } else {
-                    User.findAndUpdate({ username: myUsername }, { $pull: { likedBlogs: blogId } }, function (err, doc) {
+                    User.findOneAndUpdate({ username: myUsername }, { $pull: { likedBlogs: blogId } }, function (err, doc) {
                         if (err) {
                             console.log('update document error')
                         } else {
@@ -214,4 +213,40 @@ router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
             }
         });
     res.json('hello')
+})
+
+// ========================== Comment the blog =============================
+router.post('/users/blogs/comments/:blogId', async (req, res) => {
+    console.log('in the update function')
+    const blogId = req.params.blogId
+    const { username, content, createdAt } = req.body
+    const newComment = {
+        username, content, createdAt
+    }
+    console.log(newComment)
+    console.log(blogId)
+    User.findOneAndUpdate({ 'blogs._id': blogId }
+        , { $push: { 'blogs.$.comments': newComment } }
+        , function (err, doc) {
+
+            if (err) {
+
+                console.log("Error in Adding New Comment");
+
+            } else {
+
+                console.log("Comment Added Successfully");
+
+                console.log(doc);
+            }
+        });
+    res.json('hello')
+})
+
+// ================================ Get all Comments ==================================
+router.get('/users/blogs/:blogId/', async (req, res) => {
+    const blogId = req.params.blogId
+    const blog = await User.find({ 'blogs._id': blogId }, { 'username': 1, 'blogs.$': 1 })
+    console.log(blog)
+    res.json(blog)
 })

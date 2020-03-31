@@ -10,22 +10,9 @@ import Following from './components/follows/Following'
 import Feed from './components/feed/Feed'
 import OpenFeed from './components/feed/OpenFeed'
 import Find from './components/find/Find'
-// import axios from 'axios'
 import OthersProfile from './components/others/OthersProfile'
-// import Test from './components/Test'
 
 export default class App extends Component {
-
-  // fetchUserData = () => {
-  //   axios.get(`http://localhost:5000/users/${this.state.userdata.username}`)
-  //     .then((response) => {
-  //       this.setState({ userdata: response.data })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert('invalid username or password')
-  //     });
-  // }
 
   logoutUser = () => {
     this.setState({ isLoggedIn: false })
@@ -34,7 +21,7 @@ export default class App extends Component {
 
   setUser = (validation, userdata) => {
     this.setState({ isLoggedIn: validation, userdata })
-    console.log(userdata)
+    // console.log(userdata)
   }
 
   state = {
@@ -43,56 +30,59 @@ export default class App extends Component {
   }
 
   render() {
-    const username = this.state.userdata.username
-
     return (
-      // <Test></Test>
       <BrowserRouter>
 
-        <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
-          username={username} logoutUser={this.logoutUser}>
-        </Navbar>
+        {this.state.isLoggedIn === true ?
+          <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
+            username={this.state.userdata.username} logoutUser={this.logoutUser}>
+          </Navbar>
+          :
+          <Navbar setUser={this.setUser} isLoggedIn={this.state.isLoggedIn}
+            logoutUser={this.logoutUser}>
+          </Navbar>
+        }
 
         <div className='mainBox'>
           <Switch>
             {this.state.isLoggedIn ?
 
               <Switch>
+
                 <Route path='/feed/blog/:id' component={(props) =>
-                  <OpenFeed {...props} username={username} likedBlogs={this.state.userdata.likedBlogs}></OpenFeed>}>
+                  <OpenFeed {...props} username={this.state.userdata.username} likedBlogs={this.state.userdata.likedBlogs}></OpenFeed>}>
                 </Route>
                 <Route path='/feed' component={() =>
-                  <Feed username={username} followingArray={this.state.userdata.following} fetchUserData={this.fetchUserData}></Feed>}>
+                  <Feed username={this.state.userdata.username} followingArray={this.state.userdata.following} fetchUserData={this.fetchUserData}></Feed>}>
                 </Route>
                 <Route path='/profile/followers/:otherUser' component={(props) =>
-                  <Followers username={username} {...props}></Followers>}>
+                  <Followers username={this.state.userdata.username} {...props}></Followers>}>
                 </Route>
                 <Route path='/profile/following/:otherUser' component={(props) =>
-                  <Following username={username} {...props}></Following>}>
+                  <Following username={this.state.userdata.username} {...props}></Following>}>
                 </Route>
                 <Route path='/profile' component={() =>
-                  <Profile username={username}></Profile>}>
+                  <Profile username={this.state.userdata.username}></Profile>}>
                 </Route>
                 <Route path='/find' component={(props) =>
-                  <Find {...props} username={username} followingArray={this.state.userdata.following} fetchUserData={this.fetchUserData}></Find>}>
+                  <Find {...props} username={this.state.userdata.username} followingArray={this.state.userdata.following} fetchUserData={this.fetchUserData}></Find>}>
                 </Route>
                 <Route path='/blogs/:id' render={(props) =>
-                  <FullBlog {...props} username={username}></FullBlog>}>
+                  <FullBlog {...props} username={this.state.userdata.username}></FullBlog>}>
                 </Route>
                 <Route path='/blogs' component={() =>
-                  <ShowBlogs blogsData={this.state.userdata.blogs} username={username}></ShowBlogs>}>
+                  <ShowBlogs blogsData={this.state.userdata.blogs} username={this.state.userdata.username}></ShowBlogs>}>
                 </Route>
-                <Route path='/others/profile/:otherUser' component={(props) =>
-                  <OthersProfile username={username} {...props} followingArray={this.state.userdata.following}></OthersProfile>}>
+                <Route path='/others/otherProfile/:otherUser' component={(props) =>
+                  <OthersProfile username={this.state.userdata.username} {...props} followingArray={this.state.userdata.following}></OthersProfile>}>
                 </Route>
                 <Route path='/' component={Home}></Route>
+
               </Switch>
 
               :
 
-              <Switch>
-                <Route path='/' component={Home}></Route>
-              </Switch>
+              <Route path='/' component={Home}></Route>
 
             }
 

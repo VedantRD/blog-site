@@ -1,46 +1,51 @@
 import React, { Component } from 'react'
+import card1 from '../../assets/home.jpg'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment';
 
 export class RenderBlogs extends Component {
     render() {
-        const item = this.props.ele
-        const created = item.createdAt
+        const blog = this.props.blog
         return (
-            <div>
-                <div className='card mx-3 mb-3'>
-
-                    <div className="card-body">
-                        <h3 className="card-title">{item.title}</h3>
-                        {/* <h6 className="card-subtitle mb-3 text-muted">{item.username}</h6> */}
-                        <p className="card-text">
-                            <Moment format="DD MMM, YYYY">{created}</Moment>,
-                            <span className="text-muted"> (last updated <Moment fromNow ago>{created}</Moment> ago)</span>
-                        </p>
-                        <p className="card-text">{item.content}......</p>
-
-                        <div className="row justify-content-between px-3 mt-5 align-items-baseline">
-                            <p className="px-2 py-1 mr-2 text-light rounded text-center" style={{ backgroundColor: '#2777c2' }}>{item.tags}</p>
-                            <Link to={`/blogs/${item._id}`}>
-                                <button className='btn btn-outline-primary py-1 mr-2'>
-                                    <i className="fa fa-book mr-2" aria-hidden="true"></i>Read Full Blog
-                            </button>
-                            </Link>
-                        </div>
-
+            // <div>
+            <div className="card mb-3">
+                <div className="row no-gutters">
+                    <div className="col-auto">
+                        <img src={card1} className="" width={200} height={200} alt='not found' />
                     </div>
-
-                    <div className='card-footer'>
-                        <div className="card-text row justify-content-end mr-3">
-                            <div>
-                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>  {item.likes}
-                                <i className="fa fa-thumbs-o-down ml-2" aria-hidden="true"></i>  {item.likes}
+                    <div className="col">
+                        <div className="card-block">
+                            <div className='card-body'>
+                                <h4 className="card-title pb-1 mb-0 text-capitalize">{blog.title}</h4>
+                                <Link to={`/others/otherProfile/${blog.writtenBy}`}>
+                                    <u className='text-muted mt-0 card-subtitle'>{blog.writtenBy}</u>
+                                </Link>
+                                <p className="card-text mt-2">
+                                    <Moment format="DD MMM, YYYY">{blog.createdAt}</Moment>
+                                    <span className="text-muted"> ( <Moment fromNow ago>{blog.createdAt}</Moment> ago )</span>
+                                </p>
+                                <div className='row no-gutters'>
+                                    <Link to={`/feed/blog/${blog._id}`} className='ml-auto mr-3'>
+                                        <span className='card-text text-muted'>Read Full Blog</span>
+                                        <i className="fa fa-chevron-right text-muted ml-2" aria-hidden="true"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className='row no-gutters card-footer py-1 px-4'>
+                                <div className='text-muted'>
+                                    <i className="fa fa-heart-o mr-2" aria-hidden="true"></i>
+                                    <span>{blog.likes}</span>
+                                </div>
+                                <div className='ml-4 text-muted'>
+                                    <i className="fa fa-comment-o text-muted mr-2" aria-hidden="true"></i>
+                                    <span className=''>{blog.comments.length}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+            // </div>
         )
     }
 }

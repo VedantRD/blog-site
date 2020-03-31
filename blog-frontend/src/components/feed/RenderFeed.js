@@ -17,28 +17,29 @@ export default class RenderFeed extends Component {
                         <div className="col">
                             <div className="card-block">
                                 <div className='card-body'>
-                                    <h4 className="card-title mb-3">{blog.title}</h4>
-                                    <Link to={`/others/profile/${blog.writtenBy}`}>
-                                        <p className='text-muted card-subtitle'>{blog.writtenBy}</p>
+                                    <h4 className="card-title pb-1 mb-0 text-capitalize">{blog.title}</h4>
+                                    <Link to={`/others/otherProfile/${blog.writtenBy}`}>
+                                        <u className='text-muted mt-0 card-subtitle'>{blog.writtenBy}</u>
                                     </Link>
-                                    <p className="card-text">
+                                    <p className="card-text mt-2">
                                         <Moment format="DD MMM, YYYY">{blog.createdAt}</Moment>
                                         <span className="text-muted"> ( <Moment fromNow ago>{blog.createdAt}</Moment> ago )</span>
                                     </p>
                                     <div className='row no-gutters'>
                                         <Link to={`/feed/blog/${blog._id}`} className='ml-auto mr-3'>
-                                            <u><p className='card-text'>Read Full Blog</p></u>
+                                            <span className='card-text text-muted'>Read Full Blog</span>
+                                            <i className="fa fa-chevron-right text-muted ml-2" aria-hidden="true"></i>
                                         </Link>
                                     </div>
                                 </div>
                                 <div className='row no-gutters card-footer py-1 px-4'>
                                     <div className='text-muted'>
-                                        {/* <span></span> */}
-                                        <span className=''>7 <u>Comments</u></span>
+                                        <i className="fa fa-heart-o mr-2" aria-hidden="true"></i>
+                                        <span>{blog.likes}</span>
                                     </div>
-                                    <div className='ml-auto'>
-                                        <i className="fa fa-heart" aria-hidden="true"></i>
-                                        <span> 40</span>
+                                    <div className='ml-4 text-muted'>
+                                        <i className="fa fa-comment-o text-muted mr-2" aria-hidden="true"></i>
+                                        <span className=''>{blog.comments.length}</span>
                                     </div>
                                 </div>
                             </div>

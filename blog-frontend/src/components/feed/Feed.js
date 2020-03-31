@@ -9,12 +9,10 @@ export default class Feed extends Component {
     }
 
     loadFeed = () => {
-        // const username = this.props.username
-        // this.props.fetchUserData()
         axios.get(`http://localhost:5000/users/feed/${this.props.followingArray}`,
         )
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data) {
                     for (let user of response.data) {
                         // console.log(user)
@@ -27,7 +25,7 @@ export default class Feed extends Component {
                     })
                     this.setState({ blogs: temp })
                 }
-                console.log(this.state.blogs)
+                // console.log(this.state.blogs)
             })
             .catch((error) => {
                 console.log(error);
@@ -35,18 +33,14 @@ export default class Feed extends Component {
             });
     }
 
-    // componentWillMount() {
-    //     this.props.fetchUserData()
-    // }
-
     componentDidMount() {
         this.loadFeed()
-        console.log(this.props.followingArray)
+        // console.log(this.props.followingArray)
     }
 
     render() {
         return (
-            <div>
+            <div className='container'>
 
                 {this.state.blogs.length === 0 ?
 
@@ -59,7 +53,7 @@ export default class Feed extends Component {
                     <div className='row no-gutters p-3'>
                         {this.state.blogs.map((blog) => {
                             return (
-                                <div className="col-sm-12 col-md-6 mb-4 p-3" key={blog._id}>
+                                <div className="col-sm-12 col-md-12 p-2" key={blog._id}>
                                     <RenderFeed blog={blog}></RenderFeed>
                                 </div>)
                         })}

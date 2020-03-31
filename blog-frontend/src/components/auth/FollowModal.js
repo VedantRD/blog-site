@@ -9,11 +9,12 @@ export default class FollowModal extends Component {
         event.preventDefault()
         const username = this.props.username
         const otherUser = this.props.otherUser
-        console.log(username, otherUser)
+        // console.log(username, otherUser)
         axios.post(`http://localhost:5000/users/follow/${username}/${otherUser}`)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 this.props.addFollowing(otherUser)
+                this.props.addFollower(otherUser)
             }).catch((error) => {
                 console.log(error);
             });

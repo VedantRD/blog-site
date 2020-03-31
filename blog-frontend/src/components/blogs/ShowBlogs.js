@@ -32,12 +32,14 @@ export class ShowBlogs extends Component {
                 <div className='row justify-content-end no-gutters'>
                     <CreateNewBlog username={this.props.username} getAllBlogs={this.getAllBlogs}></CreateNewBlog>
                 </div>
-                {this.state.blogs ?
-                    this.state.blogs.map((ele) => {
-                        return <RenderBlogs ele={ele} key={ele.title}></RenderBlogs>
-                    }) :
-                    <h3>Write Your First Blog</h3>
-                }
+                <div className='container'>
+                    {this.state.blogs ?
+                        this.state.blogs.map((blog) => {
+                            return <RenderBlogs blog={blog} key={blog._id}></RenderBlogs>
+                        }) :
+                        <h3>Write Your First Blog</h3>
+                    }
+                </div>
             </div>
         )
     }

@@ -10,7 +10,7 @@ export default class UnfollowModal extends Component {
         const otherUser = this.props.otherUser
         axios.post(`http://localhost:5000/users/unfollow/${username}/${otherUser}`)
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 this.props.removeFollowing(otherUser)
             }).catch((error) => {
                 console.log(error);

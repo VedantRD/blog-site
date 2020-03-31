@@ -16,11 +16,13 @@ export default class RenderBlogs extends Component {
                         <div className="col">
                             <div className="card-block">
                                 <div className='card-body'>
-                                    <h4 className="card-title mb-3">{blog.title}</h4>
-                                    <p className='card-text p-0 m-0'>{blog.writtenBy}</p>
-                                    <p className="card-text p-0 m-0">
+                                    <h4 className="card-title">{blog.title}</h4>
+                                    <Link to={`/others/otherProfile/${blog.writtenBy}`} className='text-dark'>
+                                        <p className='card-text p-0 m-0'>{blog.writtenBy}</p>
+                                    </Link>
+                                    <p className="card-text p-0 mt-4 mb-0">
                                         <Moment format="DD MMM, YYYY">{blog.createdAt}</Moment>
-                                        <span className="text-muted"> (last updated <Moment fromNow ago>{blog.createdAt}</Moment> ago)</span>
+                                        <span className="text-muted"> ( <Moment fromNow ago>{blog.createdAt}</Moment> ago)</span>
                                     </p>
                                     <Link to={`/feed/blog/${blog._id}`}>
                                         <p className='card-text'>Read Full Blog</p>

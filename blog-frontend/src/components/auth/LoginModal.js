@@ -9,10 +9,6 @@ export default class LoginModal extends Component {
         password: '',
         modalStatus: false
     }
-    constructor(props) {
-        super(props);
-        this.UserAuth = this.UserAuth.bind(this);
-    }
 
     setUsername = (e) => {
         this.setState({ username: e.target.value })
@@ -22,20 +18,24 @@ export default class LoginModal extends Component {
         this.setState({ password: e.target.value })
     }
 
-    UserAuth(event) {
+    UserAuth = (event) => {
         event.preventDefault();
         const username = this.state.username
         const password = this.state.password
         axios.get(`http://localhost:5000/user/${username}/${password}`)
             .then((response) => {
-                this.setState({ modalStatus: true })
-                this.props.setUser(true, response.data)
-                //this.props.changeUserStatus(true)
-                //console.log(response.data);
+                if (response.data) {
+                    this.setState({ modalStatus: true })
+                    this.props.setUser(true, response.data)
+                }
+                else {
+                    alert('invalid username or password')
+                }
             })
             .catch((error) => {
                 console.log(error);
-                alert('invalid username or password')
+                this.forceUpdate()
+                alert('something went wrong')
             });
     }
 

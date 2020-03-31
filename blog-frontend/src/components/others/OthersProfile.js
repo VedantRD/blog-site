@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SocialIcon } from 'react-social-icons';
 import card1 from '../../assets/home.jpg'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import UnfollowModal from '../auth/UnfollowModal';
 import FollowModal from '../auth/FollowModal';
 
@@ -53,7 +53,6 @@ export default class OthersProfile extends Component {
     render() {
         const user = this.state.userData
         return (
-            // <div className='container mt-2'>
             this.state.userData ?
                 <div className='card mx-5 mt-5 mb-3'>
                     {console.log('rendering user profile')}
@@ -86,7 +85,6 @@ export default class OthersProfile extends Component {
                                     :
                                     <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username}></FollowModal>
                                 }
-                                {/* <button className='btn btn-danger'>Hello</button> */}
                             </div>
                         </div>
                         <hr className=''></hr>
@@ -99,16 +97,16 @@ export default class OthersProfile extends Component {
                                         <p className="text-muted"> <i className="fa fa-picture-o mr-1"></i>Blogs</p>
                                     </div>
                                     <div className='col-lg-2 col-sm-4'>
-                                        <Link to={`/profile/followers/${user.username}`}>
-                                            <h5 className="font-weight-bold mb-0 d-block text-dark">{user.followers.length}</h5>
-                                            <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Followers</p>
-                                        </Link>
+                                        {/* <Link to={`/profile/followers/${user.username}`}> */}
+                                        <h5 className="font-weight-bold mb-0 d-block text-dark">{user.followers.length}</h5>
+                                        <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Followers</p>
+                                        {/* </Link> */}
                                     </div>
                                     <div className='col-lg-2 col-sm-4'>
-                                        <Link to={`/profile/following/${user.username}`}>
-                                            <h5 className="font-weight-bold mb-0 d-block text-dark">{user.following.length}</h5>
-                                            <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Following</p>
-                                        </Link>
+                                        {/* <Link to={`/profile/following/${user.username}`}> */}
+                                        <h5 className="font-weight-bold mb-0 d-block text-dark">{user.following.length}</h5>
+                                        <p className="text-muted"> <i className="fa fa-user-circle-o mr-1"></i>Following</p>
+                                        {/* </Link> */}
                                     </div>
                                 </div>
                             </div>

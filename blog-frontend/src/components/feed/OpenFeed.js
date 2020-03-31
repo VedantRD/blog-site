@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Moment from 'react-moment'
 import axios from 'axios'
+import Comments from '../comments/Comments'
 
 export default class OpenFeed extends Component {
 
@@ -11,21 +12,15 @@ export default class OpenFeed extends Component {
 
     componentDidMount() {
         this.getBlogData()
-        // console.log(this.state.blog.title)
     }
 
     getBlogData() {
-        console.log(this.props.match.params.id)
+        // console.log(this.props.match.params.id)
         const blogId = this.props.match.params.id
-        // this.setState({ blog })
-        // console.log(blog)
-        console.log(blogId)
-        console.log(blogId)
         axios.get(`http://localhost:5000/users/blogs/${blogId}/${this.props.username}`)
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
                 console.log(response.data);
-                // console.log(blog)
             })
             .catch((error) => {
                 console.log(error);
@@ -48,8 +43,7 @@ export default class OpenFeed extends Component {
                     likedBlogs = likedBlogs.filter(function (value) { return value !== blog._id; })
                 }
                 this.setState({ blog, likedBlogs })
-                console.log(response.data);
-                // console.log(blog)
+                // console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -63,6 +57,11 @@ export default class OpenFeed extends Component {
         const title = this.state.blog.title
         const content = this.state.blog.content
         const tags = this.state.blog.tags
+        const comments = this.state.blog.comments
+        let noOfComments = 0
+        if (comments) {
+            noOfComments = comments.length
+        }
 
         return (
             <div>
@@ -71,20 +70,18 @@ export default class OpenFeed extends Component {
 
                     {<div className="card-header">
                         <div className='row justify-content-between px-5'>
-                            <h1 className="card-title">{title}</h1>
+                            <h1 className="card-title text-capitalize">{title}</h1>
                         </div>
                     </div>}
 
                     <div className="card-body px-5">
                         <div className="row mt-3 pl-3 align-items-baseline">
-                            {/* <span className='blockquote'>16 Mar, 2020</span> */}
                             <p className='blockquote'>
                                 <Moment format="DD MMM, YYYY">
                                     {created}
                                 </Moment>
                                 <span className='align-items-baseline text-muted'> (last updated <Moment fromNow ago>{created}</Moment> ago)</span>
                             </p>
-                            {/* <span className="align-items-center">, (last updated 10 min ago)</span> */}
                         </div>
 
                         <p className="card-text mt-4" style={{ fontSize: 20 }}>
@@ -96,25 +93,46 @@ export default class OpenFeed extends Component {
                             <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
                             <span className="card-text px-2 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2' }}>{tags}</span>
                         </div>
-
-                        <div className='row justify-content-end px-4 mt-3'>
-                            {this.state.likedBlogs.includes(this.state.blog._id) ?
-                                <button className='btn button-transparent' onClick={() => this.likeAndUnlikeBlog('Unlike')}>
-                                    <p className="card-text " style={{ fontSize: 21 }}>
-                                        <i className="fa fa-heart" aria-hidden="true"></i> {this.state.blog.likes}
-                                    </p>
-                                </button>
-                                :
-
-                                <button className='btn button-transparent' onClick={() => this.likeAndUnlikeBlog('Like')}>
-                                    <p className="card-text " style={{ fontSize: 21 }}>
-                                        <i className="fa fa-heart-o" aria-hidden="true"></i> {this.state.blog.likes}
-                                    </p>
-                                </button>
-                            }
-                        </div>
-
                     </div>
+
+                    <div className='card-footer px-5'>
+                        <div className='row no-gutters py-0 m-0'>
+
+                            <big className="btn p-0 m-0 text-muted" data-toggle="collapse" data-target="#demo">
+                                <span className="btn p-0 m-0 text-muted" data-toggle="collapse" data-target="#demo">
+                                    <u className=''>
+                                        <span>Comments</span>
+                                        <i className="fa fa-chevron-down text-muted ml-2" aria-hidden="true"></i>
+                                    </u>
+                                </span>
+                            </big>
+
+                            <div className='ml-auto mr-4'>
+                                {this.state.likedBlogs.includes(this.state.blog._id) ?
+
+                                    <big className='ml-auto text-muted' onClick={() => this.likeAndUnlikeBlog('Unlike')} style={{ cursor: 'pointer' }}>
+                                        <i className="fa fa-heart" style={{ color: 'red' }} aria-hidden="true"></i> {this.state.blog.likes}
+                                    </big>
+
+                                    :
+
+                                    <big className='ml-auto text-muted' onClick={() => this.likeAndUnlikeBlog('Like')} style={{ cursor: 'pointer' }}>
+                                        <i className="fa fa-heart-o" aria-hidden="true"></i> {this.state.blog.likes}
+                                    </big>
+                                }
+                            </div>
+
+                            <big style={{ cursor: 'pointer' }} data-toggle="collapse" data-target="#demo">
+                                <i className="fa fa-comment-o text-muted mr-2" aria-hidden="true"></i>
+                                <span className='pb-1 text-muted'>{noOfComments}</span>
+                            </big>
+
+                        </div>
+                        <div id='demo' className='collapse mt-3'>
+                            <Comments blogId={this.props.match.params.id} username={this.props.username}></Comments>
+                        </div>
+                    </div>
+
                 </div>
 
 

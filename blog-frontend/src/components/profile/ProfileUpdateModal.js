@@ -15,7 +15,7 @@ export default class ProfileUpdateModal extends Component {
             profile: this.state.profile
         }).then((response) => {
             // console.log(response);
-            this.props.getUserData()
+            this.props.fetchUserData()
         }).catch((error) => {
             console.log(error);
         });

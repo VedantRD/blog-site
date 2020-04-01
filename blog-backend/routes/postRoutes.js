@@ -112,9 +112,22 @@ router.post('/users/follow/:myUsername/:otherUser', async (req, res) => {
                 User.findOneAndUpdate({ username: otherUser }, { $push: { followers: myUsername } }, function (err, doc) {
                     if (err) {
                         console.log('update document error')
-                    } else {
-                        console.log('update document success')
-                        console.log(doc)
+                    }
+                    else if (myUsername !== otherUser) {
+
+                        const newActivity = {
+                            content: `${myUsername} started following you`,
+                            createdAt: Date.now()
+                        }
+                        User.findOneAndUpdate({ username: otherUser }, { $push: { activity: newActivity } }, function (err, doc) {
+                            if (err) {
+                                console.log('update document error')
+                            }
+                            else {
+                                console.log('update document success')
+                                // console.log(doc)
+                            }
+                        })
                     }
                 })
                 console.log(doc);
@@ -174,6 +187,7 @@ router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
     const myUsername = req.params.myUsername
     const blogId = req.params.blogId
     const act = req.params.act
+    const { otherUser } = req.body
     let incrementor
     if (act === 'Like')
         incrementor = 1
@@ -194,9 +208,22 @@ router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
                     User.findOneAndUpdate({ username: myUsername }, { $push: { likedBlogs: blogId } }, function (err, doc) {
                         if (err) {
                             console.log('update document error')
-                        } else {
-                            console.log('update document success')
-                            console.log(doc)
+                        }
+                        else if (myUsername !== otherUser) {
+
+                            const newActivity = {
+                                content: `${myUsername} liked your blog`,
+                                createdAt: Date.now()
+                            }
+                            User.findOneAndUpdate({ username: otherUser }, { $push: { activity: newActivity } }, function (err, doc) {
+                                if (err) {
+                                    console.log('update document error')
+                                }
+                                else {
+                                    console.log('update document success')
+                                    console.log(doc)
+                                }
+                            })
                         }
                     })
                 } else {
@@ -219,7 +246,7 @@ router.post('/users/blogs/:myUsername/:blogId/:act', async (req, res) => {
 router.post('/users/blogs/comments/:blogId', async (req, res) => {
     console.log('in the update function')
     const blogId = req.params.blogId
-    const { username, content, createdAt } = req.body
+    const { username, content, createdAt, otherUser } = req.body
     const newComment = {
         username, content, createdAt
     }
@@ -233,11 +260,21 @@ router.post('/users/blogs/comments/:blogId', async (req, res) => {
 
                 console.log("Error in Adding New Comment");
 
-            } else {
+            } else if (username !== otherUser) {
 
-                console.log("Comment Added Successfully");
-
-                console.log(doc);
+                const newActivity = {
+                    content: `${username} commented on your blog`,
+                    createdAt: Date.now()
+                }
+                User.findOneAndUpdate({ username: otherUser }, { $push: { activity: newActivity } }, function (err, doc) {
+                    if (err) {
+                        console.log('update document error')
+                    }
+                    else {
+                        console.log("Comment Added Successfully");
+                        console.log(doc);
+                    }
+                })
             }
         });
     res.json('hello')

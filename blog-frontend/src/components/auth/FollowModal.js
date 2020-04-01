@@ -13,8 +13,8 @@ export default class FollowModal extends Component {
         axios.post(`http://localhost:5000/users/follow/${username}/${otherUser}`)
             .then((response) => {
                 // console.log(response);
-                this.props.addFollowing(otherUser)
-                this.props.addFollower(otherUser)
+                this.props.fetchUserData()
+                // this.props.addFollowing(otherUser)
             }).catch((error) => {
                 console.log(error);
             });

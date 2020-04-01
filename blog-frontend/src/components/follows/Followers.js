@@ -22,12 +22,6 @@ export default class Followers extends Component {
             });
     }
 
-    addFollower = (otherUser) => {
-        let userData = this.state.userData
-        userData.following = [...this.state.userData.following, otherUser]
-        this.setState({ userData })
-    }
-
     componentDidMount() {
         this.getFollowers()
     }
@@ -45,7 +39,7 @@ export default class Followers extends Component {
                         this.state.followersData.map((follower) => {
                             return (
                                 <div className="col-sm-12 col-md-6 mb-4" key={follower}>
-                                    <RenderFollowers addFollower={this.addFollower} followerName={follower} userData={this.state.userData}>
+                                    <RenderFollowers followerName={follower} userData={this.state.userData}>
                                     </RenderFollowers>
                                 </div>
                             )

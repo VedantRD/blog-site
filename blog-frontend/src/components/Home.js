@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
-// import { Link } from 'react-router-dom'
 import background from '../assets/new2.jpg'
 import card1 from '../assets/home.jpg'
 import card2 from '../assets/home2.jpg'

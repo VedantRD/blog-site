@@ -26,14 +26,6 @@ export default class Following extends Component {
         this.getFollowing()
     }
 
-    removeFollowing = (otherUser) => {
-        // event.preventDefault()
-        console.log(otherUser)
-        let tempArray = this.state.followingData
-        var filtered = tempArray.filter(function (value) { return value !== otherUser; })
-        this.setState({ followingData: filtered })
-    }
-
     render() {
         return (
             <div className='container'>
@@ -47,7 +39,7 @@ export default class Following extends Component {
                         this.state.followingData.map((followingName) => {
                             return (
                                 <div className="col-sm-12 col-md-6 mb-4" key={followingName}>
-                                    <RenderFollowing removeFollowing={this.removeFollowing} otherUser={followingName} userData={this.state.userData}></RenderFollowing>
+                                    <RenderFollowing otherUser={followingName} userData={this.state.userData}></RenderFollowing>
                                 </div>
                             )
                         })

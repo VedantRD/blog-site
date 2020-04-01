@@ -21,7 +21,6 @@ export default class OpenFeed extends Component {
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
                 let tags = [...(this.state.blog.tags.split(" "))]
-                console.log(tags)
                 this.setState({ tags })
                 // console.log(response.data);
             })
@@ -33,7 +32,7 @@ export default class OpenFeed extends Component {
 
     likeAndUnlikeBlog = (act) => {
         const blogId = this.state.blog._id
-        axios.post(`http://localhost:5000/users/blogs/${this.props.username}/${blogId}/${act}`)
+        axios.post(`http://localhost:5000/users/blogs/${this.props.username}/${blogId}/${act}`, { otherUser: this.state.blog.writtenBy })
             .then((response) => {
                 let blog = this.state.blog
                 let likedBlogs = this.state.likedBlogs
@@ -95,7 +94,7 @@ export default class OpenFeed extends Component {
                             {this.state.blog.tags ?
                                 tags.map((tag, ind) => {
                                     return (
-                                        <span className="card-text px-3 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2',fontSize:19 }} key={ind}>{tag}</span>
+                                        <span className="card-text px-3 py-1 text-light mr-2 rounded" style={{ backgroundColor: '#2777c2', fontSize: 19 }} key={ind}>{tag}</span>
                                     )
                                 })
                                 :
@@ -138,7 +137,7 @@ export default class OpenFeed extends Component {
 
                         </div>
                         <div id='demo' className='collapse mt-3'>
-                            <Comments blogId={this.props.match.params.id} username={this.props.username}></Comments>
+                            <Comments blogId={this.props.match.params.id} username={this.props.username} otherUser={this.state.blog.writtenBy}></Comments>
                         </div>
                     </div>
 

@@ -9,7 +9,8 @@ export default class Profile extends Component {
 
     state = {
         userData: null,
-        rerender: ''
+        rerender: '',
+        age: 0
     }
 
     getUserData = () => {
@@ -18,12 +19,17 @@ export default class Profile extends Component {
             .then((response) => {
                 // console.log(response.data);
                 this.setState({ userData: response.data })
-                this.forceUpdate()
+                this.calculateAge()
             })
             .catch((error) => {
                 console.log(error);
                 alert('something went wrong')
             });
+    }
+
+    calculateAge = () => {
+        const age = 2020 - parseInt(this.state.userData.profile.dateOfBirth.yob)
+        this.setState({ age })
     }
 
     componentDidMount() {
@@ -36,7 +42,6 @@ export default class Profile extends Component {
             // <div className='container mt-2'>
             this.state.userData ?
                 <div className='card mx-5 mt-5 mb-3'>
-                    {console.log('rendering user profile')}
 
                     <div className="card-header">
 
@@ -46,7 +51,10 @@ export default class Profile extends Component {
                             </div>
                             <div className='col-lg-10 col-md-4 profileusername'>
                                 <h3 className="card-title my-0 d-inline">{user.username}</h3>
-                                <p className="small mb-3"> <i className="fa fa-map-marker mr-2"></i>Bharat</p>
+                                <p className="mb-3">
+                                    <i className="fa fa-map-marker mr-2" style={{ color: 'red' }}></i>
+                                    {user.profile.currentlyLivingIn}
+                                </p>
                                 <p className='card-text'><span className='font-weight-bold'>Profession : </span>
                                     {user.profile.profession}
                                 </p>
@@ -64,7 +72,7 @@ export default class Profile extends Component {
                         <div className='row no-gutters justify-content-sm-center justify-content-lg-end text-center mx-0 px-0 align-items-center'>
                             <div className='col-lg-4'>
                                 <div className='row justify-content-start align-items-center no-gutters pl-5 editprof'>
-                                    <ProfileUpdateModal profile={user.profile} username={user.username} getUserData={this.getUserData}></ProfileUpdateModal>
+                                    <ProfileUpdateModal profile={user.profile} username={user.username} fetchUserData={this.props.fetchUserData}></ProfileUpdateModal>
                                 </div>
                             </div>
                             <div className='col-lg-8'>
@@ -109,16 +117,12 @@ export default class Profile extends Component {
 
                             <div className='col-lg-6'>
                                 <div className='card'>
-                                    <div className='row no-gutters card-header align-items-center'>
-                                        <h5>Personal Info</h5>
-                                    </div>
                                     <div className='card-body'>
                                         <div>
+                                            <h5 className='card-title mb-4'>Personal Info</h5>
                                             <p className='card-text'>Fullname : {user.profile.fullname}</p>
-                                            <p className='card-text'>Nationality : {user.profile.nationality}</p>
-                                            <p className='card-text'>Age : 20</p>
+                                            <p className='card-text'>Age : {this.state.age}</p>
                                             <p className='card-text'>Gender : {user.profile.gender}</p>
-                                            <p className='card-text'>Hobbies : Gaming, Programming, Cricket</p>
                                         </div>
                                     </div>
                                 </div>

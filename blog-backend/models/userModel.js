@@ -37,6 +37,11 @@ const profileSchema = new mongoose.Schema({
     hobbies: { type: String, default: 'I like nothing' }
 })
 
+const activitySchema = new mongoose.Schema({
+    content: { type: String, required: true },
+    createdAt: { type: Date, required: true }
+})
+
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -45,7 +50,8 @@ const userSchema = new mongoose.Schema({
     profile: { type: profileSchema, default: {} },
     following: { type: [String], default: [] },
     followers: { type: [String], default: [] },
-    likedBlogs: { type: [String], default: [] }
+    likedBlogs: { type: [String], default: [] },
+    activity: { type: [activitySchema], default: [] }
 })
 
 module.exports = {

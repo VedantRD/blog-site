@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default class RegisterModal extends Component {
 
@@ -58,6 +59,12 @@ export default class RegisterModal extends Component {
         this.setState({ confirmPassword: e.target.value })
     }
 
+    componentDidMount(){
+        $('#form2').on('shown.bs.modal', function () {
+            $('#usernameReg').focus();
+        })
+    }
+
     render() {
         return (
             <div>
@@ -86,7 +93,7 @@ export default class RegisterModal extends Component {
                                     <div className="modal-body">
                                         <div className="form-group">
                                             <label htmlFor="email1">Enter Username</label>
-                                            <input type="text" className="form-control" id="email2" aria-describedby="emailHelp" placeholder="Enter Username" onChange={this.setUsername} />
+                                            <input type="text" autoFocus className="form-control" id="usernameReg" aria-describedby="emailHelp" placeholder="Enter Username" onChange={this.setUsername} />
                                             <small id="emailHelp" className="form-text text-muted">Your information is safe with us.</small>
                                         </div>
                                         <div className="form-group">

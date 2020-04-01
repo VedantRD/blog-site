@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import card1 from '../../assets/home.jpg'
-import FollowModal from './../auth/FollowModal'
-import UnfollowModal from './../auth/UnfollowModal'
 import { Link } from 'react-router-dom'
 
 export default class RenderFollowers extends Component {
     render() {
         const followerName = this.props.followerName
-        const userFollowing = this.props.userData.following
         return (
             <div className="card">
                 <div className="card-body">
@@ -21,16 +18,6 @@ export default class RenderFollowers extends Component {
                             </Link>
                             <p>Web Developer</p>
                         </div>
-
-                        {userFollowing.includes(followerName) ?
-                            <div className='col-3 align-self-start'>
-                                <UnfollowModal username={this.props.userData.username} otherUser={followerName}></UnfollowModal>
-                            </div>
-                            :
-                            <div className='col-3 align-self-start'>
-                                <FollowModal addFollower={this.props.addFollower} username={this.props.userData.username} otherUser={followerName}></FollowModal>
-                            </div>
-                        }
 
                     </div>
                 </div>

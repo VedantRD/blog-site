@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default class LoginModal extends Component {
 
@@ -12,7 +13,6 @@ export default class LoginModal extends Component {
 
     setUsername = (e) => {
         this.setState({ username: e.target.value })
-        //alert(this.state.username)
     }
     setPassword = (e) => {
         this.setState({ password: e.target.value })
@@ -20,7 +20,7 @@ export default class LoginModal extends Component {
 
     UserAuth = (event) => {
         event.preventDefault();
-        const username = this.state.username
+        const username = this.state.username.toLowerCase()
         const password = this.state.password
         axios.get(`http://localhost:5000/user/${username}/${password}`)
             .then((response) => {
@@ -37,6 +37,12 @@ export default class LoginModal extends Component {
                 this.forceUpdate()
                 alert('something went wrong')
             });
+    }
+
+    componentDidMount(){
+        $('#loginModal').on('shown.bs.modal', function () {
+            $('#usernameLog').focus();
+        })
     }
 
     render() {
@@ -67,7 +73,7 @@ export default class LoginModal extends Component {
                                     <div className="modal-body">
                                         <div className="form-group">
                                             <label htmlFor="email1">Username</label>
-                                            <input className="form-control" placeholder="Enter Username" onChange={this.setUsername} />
+                                            <input className="form-control" id='usernameLog' placeholder="Enter Username" onChange={this.setUsername} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="password1">Password</label>

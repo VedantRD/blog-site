@@ -23,10 +23,14 @@ export default class Find extends Component {
                 // console.log(res.data)
                 const data = res.data
                 let temp = []
-                data.blogs.map((items) => {
-                    return temp = [...temp, ...items.blogs]
-                })
-                this.setState({ blogs: temp, bloggers: data.users })
+                if (data) {
+                    if (data.blogs) {
+                        data.blogs.map((items) => {
+                            return temp = [...temp, ...items.blogs]
+                        })
+                    }
+                    this.setState({ blogs: temp, bloggers: data.users })
+                }
 
             })
             .catch((err) => {
@@ -39,7 +43,7 @@ export default class Find extends Component {
             <div className='container'>
                 <div className='row no-gutters justify-content-lg-end mx-4'>
                     <div className="input-group md-form form-sm form-2 pt-3 col-lg-4">
-                        <input className="form-control my-0 py-1" type="text" placeholder="Search Here" aria-label="Search" onChange={this.handleChange} />
+                        <input autoFocus className="form-control my-0 py-1" type="text" placeholder="Search Here" aria-label="Search" onChange={this.handleChange} />
                         <div className="input-group-append" onClick={this.searchData}>
                             <button className="btn input-group-text lighten-3" id="basic-text1"><i className="fas fa-search text-grey"
                                 aria-hidden="true"></i></button>

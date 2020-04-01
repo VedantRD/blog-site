@@ -36,7 +36,7 @@ export default class Logout extends Component {
                                 <div className='row justify-content-end mb-2'>
                                     <button className='btn mr-2 btn-outline-secondary' data-dismiss="modal">Cancel</button>
                                     <Link to={''}>
-                                        <button className='btn btn-success mr-4' data-dismiss="modal" onClick={() => this.applyLogout()}>Logout</button>
+                                        <button className='btn btn-danger mr-4' data-dismiss="modal" onClick={() => this.applyLogout()}>Logout</button>
                                     </Link>
                                 </div>
                             </div>

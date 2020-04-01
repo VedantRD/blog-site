@@ -14,7 +14,8 @@ export default class Comments extends Component {
         axios.post(`http://localhost:5000/users/blogs/comments/${this.props.blogId}`, {
             username: this.props.username,
             content: this.state.newComment,
-            createdAt: new Date()
+            createdAt: new Date(),
+            otherUser: this.props.otherUser
         })
             .then((response) => {
                 // console.log(response);

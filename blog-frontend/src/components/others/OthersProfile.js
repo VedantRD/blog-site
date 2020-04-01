@@ -11,7 +11,8 @@ export default class OthersProfile extends Component {
     state = {
         userData: null,
         rerender: '',
-        followingArray: []
+        followingArray: [],
+        age: 0
     }
 
     getUserData = () => {
@@ -20,7 +21,7 @@ export default class OthersProfile extends Component {
             .then((response) => {
                 // console.log(response.data);
                 this.setState({ userData: response.data })
-                this.forceUpdate()
+                // this.forceUpdate()
             })
             .catch((error) => {
                 console.log(error);
@@ -28,12 +29,15 @@ export default class OthersProfile extends Component {
             });
     }
 
+    calculateAge = () => {
+        const age = 2020 - parseInt(this.state.userData.profile.dateOfBirth.yob)
+        this.setState({ age })
+    }
+
     removeFollowing = (otherUser) => {
-        // console.log(otherUser)
         let tempArray = this.state.followingArray
         var filtered = tempArray.filter(function (value) { return value !== otherUser; })
         this.setState({ followingArray: filtered })
-        // console.log(this.state.followingData)
     }
 
     addFollowing = (otherUser) => {
@@ -47,7 +51,6 @@ export default class OthersProfile extends Component {
         if (this.state.followingArray.length === 0) {
             this.setState({ followingArray: this.props.followingArray })
         }
-        // console.log(this.props.followingArray)
     }
 
     render() {
@@ -64,7 +67,10 @@ export default class OthersProfile extends Component {
                             </div>
                             <div className='col-lg-8 col-md-4 profileusername'>
                                 <h3 className="card-title my-0 d-inline">{user.username}</h3>
-                                <p className="small mb-3"> <i className="fa fa-map-marker mr-2"></i>Bharat</p>
+                                <p className="mb-3">
+                                    <i className="fa fa-map-marker mr-2" style={{ color: 'red' }}></i>
+                                    {user.profile.currentlyLivingIn}
+                                </p>
                                 <p className='card-text'><span className='font-weight-bold'>Profession : </span>
                                     {user.profile.profession}
                                 </p>
@@ -79,9 +85,9 @@ export default class OthersProfile extends Component {
                             <div className='col-lg-2 col-md-0 align-self-start pl-5 pt-3'>
                                 {this.props.username !== user.username ?
                                     this.state.followingArray.includes(user.username) ?
-                                        <UnfollowModal removeFollowing={this.removeFollowing} username={this.props.username} otherUser={user.username}></UnfollowModal>
+                                        <UnfollowModal removeFollowing={this.removeFollowing} username={this.props.username} otherUser={user.username} fetchUserData={this.props.fetchUserData}></UnfollowModal>
                                         :
-                                        <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username}></FollowModal>
+                                        <FollowModal addFollowing={this.addFollowing} username={this.props.username} otherUser={user.username} fetchUserData={this.props.fetchUserData}></FollowModal>
                                     :
                                     <span></span>
                                 }
@@ -128,16 +134,12 @@ export default class OthersProfile extends Component {
 
                             <div className='col-lg-6'>
                                 <div className='card'>
-                                    <div className='row no-gutters card-header align-items-center'>
-                                        <h5>Personal Info</h5>
-                                    </div>
                                     <div className='card-body'>
                                         <div>
+                                            <h5 className='card-title mb-4'>Personal Info</h5>
                                             <p className='card-text'>Fullname : {user.profile.fullname}</p>
-                                            <p className='card-text'>Nationality : {user.profile.nationality}</p>
-                                            <p className='card-text'>Age : 20</p>
+                                            <p className='card-text'>Age : {this.state.age}</p>
                                             <p className='card-text'>Gender : {user.profile.gender}</p>
-                                            <p className='card-text'>Hobbies : Gaming, Programming, Cricket</p>
                                         </div>
                                     </div>
                                 </div>

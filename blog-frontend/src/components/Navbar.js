@@ -55,6 +55,13 @@ export default class Navbar extends Component {
                                         </Link>
                                     </li>
                                     <li className="nav-item active">
+                                        <Link to={'/activity'} className="nav-link text-light mx-1" href="#one">
+                                            <i className="fa fa-bell mr-2" aria-hidden="true"></i>
+                                            Activity
+                                            <span className="sr-only">(current)</span>
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item active">
                                         <Link to={'/blogs'} className="nav-link text-light mx-1" href="#one">
                                             <i className="fa fa-book pr-2" aria-hidden="true"></i>
                                             My Blogs

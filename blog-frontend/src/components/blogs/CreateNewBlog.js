@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default class createNewBlog extends Component {
 
@@ -37,6 +38,12 @@ export default class createNewBlog extends Component {
         });
     }
 
+    componentDidMount(){
+        $('#blogModal').on('shown.bs.modal', function () {
+            $('#blogTitle').focus();
+        })
+    }
+
     render() {
         return (
             <div>
@@ -47,8 +54,8 @@ export default class createNewBlog extends Component {
                 </button>
 
                 <div className="modal fade" id="blogModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
+                    <div className="modal-dialog modal-dialog-centered modal-md" role="document">
+                        <div className="modal-content px-3">
                             <div className="modal-header border-bottom-0">
                                 <h5 className="modal-title" id="exampleModalLabel">Create New Blog</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -67,11 +74,11 @@ export default class createNewBlog extends Component {
                                     <div className="modal-body">
                                         <div className="form-group">
                                             <label>Blog Title</label>
-                                            <input className="form-control" placeholder="Write Here" onChange={this.setTitle} />
+                                            <input id='blogTitle' className="form-control" placeholder="Write Here" onChange={this.setTitle} />
                                         </div>
                                         <div className="form-group">
                                             <label>Blog Content</label>
-                                            <textarea rows={4} className="form-control" placeholder="Describe Here" onChange={this.setContent} />
+                                            <textarea rows={5} className="form-control" placeholder="Describe Here" onChange={this.setContent} />
                                         </div>
                                         <div className="form-group">
                                             <label>Write Tags</label>

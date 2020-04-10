@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SocialIcon } from 'react-social-icons';
 import card1 from '../../assets/home.jpg'
 import axios from 'axios'
-// import { Link } from 'react-router-dom';
+import Moment from 'react-moment'
 import UnfollowModal from '../auth/UnfollowModal';
 import FollowModal from '../auth/FollowModal';
 
@@ -66,7 +66,16 @@ export default class OthersProfile extends Component {
                                 <img src={card1} className="rounded-circle z-depth-2" data-holder-rendered="true" alt="Cinque Terre" height='150' width='150' />
                             </div>
                             <div className='col-lg-8 col-md-4 profileusername'>
-                                <h3 className="card-title my-0 d-inline">{user.username}</h3>
+                                <h3 className="card-title my-0 d-inline">
+                                    {user.username}
+                                    {user.isVerified ?
+                                        <small className='ml-2'>
+                                            <i className="fa fa-check-circle" aria-hidden="true" style={{ color: '#2e85e8' }}></i>
+                                        </small>
+                                        :
+                                        <span></span>
+                                    }
+                                </h3>
                                 <p className="mb-3">
                                     <i className="fa fa-map-marker mr-2" style={{ color: 'red' }}></i>
                                     {user.profile.currentlyLivingIn}
@@ -138,6 +147,9 @@ export default class OthersProfile extends Component {
                                         <div>
                                             <h5 className='card-title mb-4'>Personal Info</h5>
                                             <p className='card-text'>Fullname : {user.profile.fullname}</p>
+                                            <p className='card-text'>Joined :
+                                                <Moment format="DD MMM, YYYY"> {user.profile.joinedAt}</Moment>
+                                            </p>
                                             <p className='card-text'>Age : {this.state.age}</p>
                                             <p className='card-text'>Gender : {user.profile.gender}</p>
                                         </div>

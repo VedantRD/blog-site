@@ -22,8 +22,8 @@ export default class App extends Component {
   }
 
   logoutUser = () => {
-    this.setState({ isLoggedIn: false })
-    console.log('logout successful')
+    this.setState({ isLoggedIn: false, userdata: {} })
+    // console.log('logout successful')
   }
 
   setUser = (validation, userdata) => {

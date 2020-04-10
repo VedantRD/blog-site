@@ -18,7 +18,7 @@ export default class Find extends Component {
     }
 
     searchData = () => {
-        axios.get(`http://localhost:5000/users/find/${this.state.searchInput}`)
+        axios.get(`http://localhost:5000/users/find/${this.state.searchInput.trim()}`)
             .then((res) => {
                 // console.log(res.data)
                 const data = res.data
@@ -51,41 +51,47 @@ export default class Find extends Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-12">
-                        <h4 className='my-4'> Bloggers </h4>
+                {this.state.searchInput === "" ?
+                    <h5 className='text-center mt-5 text-muted'>Searched content will display here</h5>
+                    :
+                    <div>
+                        <div className="row">
+                            <div className="col-12">
+                                <h4 className='my-4'> Bloggers </h4>
+                            </div>
+
+                            {this.state.bloggers ?
+                                this.state.bloggers.map((blogger) => {
+                                    return (
+                                        <div className="col-sm-12 col-md-6 mb-4" key={blogger._id}>
+                                            <RenderBloggers username={this.props.username} otherUser={blogger.username} userData={blogger} followingArray={this.props.followingArray} fetchUserData={this.props.fetchUserData}></RenderBloggers>
+                                        </div>
+                                    )
+                                })
+                                :
+                                <p>Data is Loading</p>
+                            }
+                        </div>
+
+                        <div className="row">
+                            <div className="col-12">
+                                <h4 className='my-4'> Blogs related to search </h4>
+                            </div>
+
+                            {this.state.blogs ?
+                                this.state.blogs.map((blog) => {
+                                    return (
+                                        <div className="col-sm-12 col-md-6 mb-4" key={blog._id}>
+                                            <RenderBlogs blog={blog}></RenderBlogs>
+                                        </div>
+                                    )
+                                })
+                                :
+                                <p>Data is Loading</p>
+                            }
+                        </div>
                     </div>
-
-                    {this.state.bloggers ?
-                        this.state.bloggers.map((blogger) => {
-                            return (
-                                <div className="col-sm-12 col-md-6 mb-4" key={blogger._id}>
-                                    <RenderBloggers username={this.props.username} otherUser={blogger.username} userData={blogger} followingArray={this.props.followingArray} fetchUserData={this.props.fetchUserData}></RenderBloggers>
-                                </div>
-                            )
-                        })
-                        :
-                        <p>Data is Loading</p>
-                    }
-                </div>
-
-                <div className="row">
-                    <div className="col-12">
-                        <h4 className='my-4'> Blogs related to search </h4>
-                    </div>
-
-                    {this.state.blogs ?
-                        this.state.blogs.map((blog) => {
-                            return (
-                                <div className="col-sm-12 col-md-6 mb-4" key={blog._id}>
-                                    <RenderBlogs blog={blog}></RenderBlogs>
-                                </div>
-                            )
-                        })
-                        :
-                        <p>Data is Loading</p>
-                    }
-                </div>
+                }
 
             </div>
         )

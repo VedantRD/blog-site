@@ -21,7 +21,7 @@ export default class Activity extends Component {
 
     componentDidMount() {
         this.getActivity()
-        console.log(this.state.activity)
+        // console.log(this.state.activity)
     }
 
     render() {

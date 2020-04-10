@@ -16,7 +16,6 @@ app.listen(process.env.PORT, () => {
 
 app.use('/', require('./routes/postRoutes'))
 app.use(compression())
-// app.use('/posts', require('./routes/postRoutes'))
 
 // =============== mongoose setup for Mongo DB ================== //
 mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }, (err) => {

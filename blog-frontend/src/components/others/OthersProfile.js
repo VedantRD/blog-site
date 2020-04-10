@@ -148,7 +148,7 @@ export default class OthersProfile extends Component {
                                             <h5 className='card-title mb-4'>Personal Info</h5>
                                             <p className='card-text'>Fullname : {user.profile.fullname}</p>
                                             <p className='card-text'>Joined :
-                                                <Moment format="DD MMM, YYYY"> {user.profile.joinedAt}</Moment>
+                                                <Moment format="DD MMM, YYYY"> {user.joinedAt}</Moment>
                                             </p>
                                             <p className='card-text'>Age : {this.state.age}</p>
                                             <p className='card-text'>Gender : {user.profile.gender}</p>

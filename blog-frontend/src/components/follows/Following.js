@@ -11,7 +11,7 @@ export default class Following extends Component {
 
     getFollowing = () => {
         const username = this.props.match.params.otherUser
-        axios.get(`http://localhost:5000/users/${username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/${username}`)
             .then((response) => {
                 // console.log(response.data);
                 this.setState({ followingData: response.data.following, userData: response.data })

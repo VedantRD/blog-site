@@ -9,7 +9,7 @@ export default class Activity extends Component {
     }
 
     getActivity = () => {
-        axios.get(`http://localhost:5000/users/${this.props.username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/${this.props.username}`)
             .then((response) => {
                 // console.log(response)
                 this.setState({ activity: response.data.activity.reverse() })

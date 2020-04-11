@@ -10,7 +10,7 @@ export default class ProfileUpdateModal extends Component {
     updateProfile = (event) => {
         event.preventDefault()
         // console.log(this.state.profile)
-        axios.post('http://localhost:5000/users/user/profile', {
+        axios.post('https://bogiebackend.herokuapp.com/users/user/profile', {
             username: this.props.username,
             profile: this.state.profile
         }).then((response) => {

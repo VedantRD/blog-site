@@ -32,7 +32,7 @@ export default class App extends Component {
 
   fetchUserData = () => {
     // console.log('fetching data')
-    axios.get(`http://localhost:5000/users/${this.state.userdata.username}`)
+    axios.get(`https://bogiebackend.herokuapp.com/users/${this.state.userdata.username}`)
       .then((response) => {
         this.setState({ userdata: response.data })
         // console.log('data fetched successfully')

@@ -20,7 +20,7 @@ export default class RegisterModal extends Component {
             return
         }
 
-        axios.get(`http://localhost:5000/users/${this.state.username.trim().toLowerCase()}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/${this.state.username.trim().toLowerCase()}`)
             .then((response) => {
                 if (response.data) {
                     alert('This username is already taken!')
@@ -33,7 +33,7 @@ export default class RegisterModal extends Component {
 
         if (this.state.password === this.state.confirmPassword) {
 
-            axios.post('http://localhost:5000/users', {
+            axios.post('https://bogiebackend.herokuapp.com/users', {
                 username: this.state.username.trim().toLowerCase(),
                 password: this.state.password.trim()
             }).then((response) => {

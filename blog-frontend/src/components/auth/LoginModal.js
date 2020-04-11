@@ -24,7 +24,7 @@ export default class LoginModal extends Component {
         const password = this.state.password.trim()
         if (username && password) {
 
-            axios.get(`http://localhost:5000/user/${username}/${password}`)
+            axios.get(`https://bogiebackend.herokuapp.com/user/${username}/${password}`)
                 .then((response) => {
                     if (response.data) {
                         this.setState({ modalStatus: true })

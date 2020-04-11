@@ -17,7 +17,7 @@ export class FullBlog extends Component {
     getBlogData() {
         // console.log(this.props.match.params.id)
         const blogId = this.props.match.params.id
-        axios.get(`http://localhost:5000/users/blogs/${blogId}/${this.props.username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/blogs/${blogId}/${this.props.username}`)
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
                 // console.log(response.data);

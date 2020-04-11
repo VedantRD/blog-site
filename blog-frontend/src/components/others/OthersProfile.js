@@ -17,7 +17,7 @@ export default class OthersProfile extends Component {
 
     getUserData = () => {
         const username = this.props.match.params.otherUser
-        axios.get(`http://localhost:5000/users/${username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/${username}`)
             .then((response) => {
                 // console.log(response.data);
                 this.setState({ userData: response.data })

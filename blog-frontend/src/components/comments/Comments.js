@@ -11,7 +11,7 @@ export default class Comments extends Component {
 
     addNewComment = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:5000/users/blogs/comments/${this.props.blogId}`, {
+        axios.post(`https://bogiebackend.herokuapp.com/users/blogs/comments/${this.props.blogId}`, {
             username: this.props.username,
             content: this.state.newComment,
             createdAt: new Date(),
@@ -29,7 +29,7 @@ export default class Comments extends Component {
 
     getComments = () => {
         const blogId = this.props.blogId
-        axios.get(`http://localhost:5000/users/blogs/${blogId}/`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/blogs/${blogId}/`)
             .then((response) => {
                 this.setState({ comments: response.data[0].blogs[0].comments.reverse() })
             })

@@ -18,7 +18,7 @@ export default class Find extends Component {
     }
 
     searchData = () => {
-        axios.get(`http://localhost:5000/users/find/${this.state.searchInput.trim()}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/find/${this.state.searchInput.trim()}`)
             .then((res) => {
                 // console.log(res.data)
                 const data = res.data

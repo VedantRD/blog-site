@@ -17,7 +17,7 @@ export default class OpenFeed extends Component {
 
     getBlogData() {
         const blogId = this.props.match.params.id
-        axios.get(`http://localhost:5000/users/blogs/${blogId}/${this.props.username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/blogs/${blogId}/${this.props.username}`)
             .then((response) => {
                 this.setState({ blog: response.data.blogs[0] })
                 let tags = [...(this.state.blog.tags.split(" "))]
@@ -32,7 +32,7 @@ export default class OpenFeed extends Component {
 
     likeAndUnlikeBlog = (act) => {
         const blogId = this.state.blog._id
-        axios.post(`http://localhost:5000/users/blogs/${this.props.username}/${blogId}/${act}`, { otherUser: this.state.blog.writtenBy })
+        axios.post(`https://bogiebackend.herokuapp.com/users/blogs/${this.props.username}/${blogId}/${act}`, { otherUser: this.state.blog.writtenBy })
             .then((response) => {
                 let blog = this.state.blog
                 let likedBlogs = this.state.likedBlogs

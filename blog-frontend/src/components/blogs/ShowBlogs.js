@@ -7,7 +7,7 @@ export class ShowBlogs extends Component {
 
     getAllBlogs = () => {
         const username = this.props.username
-        axios.get(`http://localhost:5000/users/${username}`)
+        axios.get(`https://bogiebackend.herokuapp.com/users/${username}`)
             .then((response) => {
                 // console.log(response.data);
                 this.setState({ blogs: response.data.blogs.reverse() })

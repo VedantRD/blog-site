@@ -23,7 +23,7 @@ export default class createNewBlog extends Component {
 
     postNewBlog = (event) => {
         event.preventDefault()
-        axios.post('http://localhost:5000/users/blogs', {
+        axios.post('https://bogiebackend.herokuapp.com/users/blogs', {
             title: this.state.title,
             content: this.state.content,
             tags: this.state.tags,

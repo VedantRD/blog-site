@@ -9,7 +9,7 @@ export default class Feed extends Component {
     }
 
     loadFeed = () => {
-        axios.get(`http://localhost:5000/users/feed/${this.props.followingArray}`,
+        axios.get(`https://bogiebackend.herokuapp.com/users/feed/${this.props.followingArray}`,
         )
             .then((response) => {
                 // console.log(response.data);

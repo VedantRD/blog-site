@@ -29,7 +29,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "reactstrap": "^8.4.1",
-    "rsuite": "^4.3.2"
+    "rsuite": "^4.3.2",
+    "react-social-icons": "^4.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -8,7 +8,7 @@ export default class UnfollowModal extends Component {
         event.preventDefault()
         const username = this.props.username
         const otherUser = this.props.otherUser
-        axios.post(`http://localhost:5000/users/unfollow/${username}/${otherUser}`)
+        axios.post(`https://bogiebackend.herokuapp.com/users/unfollow/${username}/${otherUser}`)
             .then((response) => {
                 // console.log(response);
                 this.props.fetchUserData()

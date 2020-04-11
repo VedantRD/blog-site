@@ -10,7 +10,7 @@ export default class FollowModal extends Component {
         const username = this.props.username
         const otherUser = this.props.otherUser
         // console.log(username, otherUser)
-        axios.post(`http://localhost:5000/users/follow/${username}/${otherUser}`)
+        axios.post(`https://bogiebackend.herokuapp.com/users/follow/${username}/${otherUser}`)
             .then((response) => {
                 // console.log(response);
                 this.props.fetchUserData()
